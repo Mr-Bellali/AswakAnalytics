@@ -90,12 +90,12 @@ body, h1, h5, p, textarea {
   margin-right: auto;
 }
 
-.auth-form-header, .dashboard-elements h1 {
+.auth-form-header {
   font-size: 1.875rem;
   font-weight: 800;
 }
 
-.auth-form-header-supporting-text, .auth-form-submit-button-supporting-text, .dashboard-footer-elements p, .dashboard-elements p {
+.auth-form-header-supporting-text, .dashboard-elements p {
   color: var(--gray-color);
 }
 
