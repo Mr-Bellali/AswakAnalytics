@@ -180,6 +180,11 @@ body, h1, h5, p, textarea {
   margin-right: 32px;
 }
 
+.navbar-links a {
+  text-decoration: none;
+  color: var(--black-color);
+}
+
 .active-navbar-link {
   font-weight: 800;
 }
