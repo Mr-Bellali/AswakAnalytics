@@ -3,8 +3,6 @@ let userStorage = JSON.parse(localStorage.getItem('userStorage')) || [];
 let storeStorage = JSON.parse(localStorage.getItem('storeStorage')) || [];
 let dataStorage = [];
 
-console.log("here");
-
 // Hardcoded default user
 const defaultUser = {
     userId: "defaultUser123",

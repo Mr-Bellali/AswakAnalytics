@@ -147,3 +147,143 @@ body, h1, h5, p, textarea {
 .auth-form button:hover {
   cursor: pointer;
 }
+
+/* Navbar */
+
+.navbar-container {
+  width: 100%;
+  border-bottom: 1px var(--light-gray-color) solid;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-elements {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 11px auto;
+  width: 1216px;
+}
+
+.navbar-logo {
+  height: 33px;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.navbar-links li:nth-of-type(1), .navbar-links li:nth-of-type(2) {
+  margin-right: 32px;
+}
+
+.active-navbar-link {
+  font-weight: 800;
+}
+
+.logout-button {
+  border: none;
+  border-radius: 8px;
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.logout-button img {
+  margin-right: 8px;
+}
+
+.logout-button:hover {
+  cursor: pointer;
+  background-color: #004db3;
+}
+
+/* Main */
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background-color: var(--white-color);
+  border: 1px solid var(--light-gray-color);
+  width: 400px;
+  border-radius: 12px;
+}
+
+.form-header {
+  font-size: 1.125rem;
+  line-height: 28px;
+  font-weight: 800;
+}
+
+.form-header-supporting-text {
+  font-size: 0.875rem;
+  color: var(--gray-color);
+  line-height: 20px;
+}
+
+.form-content label {
+  color: var(--gray-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.form-content input {
+  margin-top: 6px;
+  padding: 10px 16px;
+  border: 1px solid var(--light-gray-color);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-dual-action-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-dual-action-buttons-container button {
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.form-dual-action-buttons-container button {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.form-dual-action-buttons-container button:hover {
+  cursor: pointer;
+}
+
+.form-dual-action-buttons-container button:nth-of-type(1) {
+  border: 1px solid var(--light-gray-color);
+  background-color: var(--white-color);
+  color: var(--black-color);
+  margin-right: 12px;
+}
+
+.form-dual-action-buttons-container button:nth-of-type(2) {
+  color: var(--white-color);
+  background-color: var(--blue-color);
+  border: none;
+  padding: 11px 0;
+}
