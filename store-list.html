@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>magasins</title>
+    <title>Liste des Magasins</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
 </head>
 <body>
     <nav class="navbar">
@@ -26,20 +25,17 @@
         <h2>Liste des Magasins</h2>
         <div class="layout-changer-holder">
             <select id="locationSelect" name="storeLocation">
-
-            </select>  
-
-            <button id="horizontalLayoutButton" onclick="ChangeID('stores-display-virtical', 'stores-display-horizontal');">
-                horizontal 
-            </button>
-            
+                <option value="all">Afficher tous</option>
+            </select>
+            <button id="btn" onclick="toggleDisplay('vertical')">Vertical</button>
+            <button id="btn1" onclick="toggleDisplay('horizontal')">Horizontal</button>
         </div>
-        <section id="stores-display-horizontal">
-            
-           
-            
-          </section>
-          
+        <section id="stores-display-horizontal" class="stores-display-horizontal">
+            <!-- Data will be rendered here -->
+        </section>
+        <div id="stores-display-vertical" class="stores-display-vertical">
+            <!-- Data will be rendered here -->
+        </div>
     </div>
 
     <script src="./assets/js/store-list.js"></script>
