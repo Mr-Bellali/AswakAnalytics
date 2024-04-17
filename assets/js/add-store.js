@@ -94,6 +94,10 @@ document.getElementById('addButton').addEventListener('click', function() {
             openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
         } else if (location && name) { 
             addStore(openingDateInput.value, location, name);
+
+            openingDateInput.value = "" ;
+            locationInput.value = "" ; 
+            nameInput.value = "" ;
         }
     }
 });
