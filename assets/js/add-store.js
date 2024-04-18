@@ -1,4 +1,3 @@
-// Initialize empty storage objects
 let storeStorage = JSON.parse(localStorage.getItem('storeStorage')) || [];
 let dataStorage = [];
 
@@ -10,11 +9,12 @@ const locationInputHelp = document.getElementById("locationInputHelp")
 const nameInputHelp = document.getElementById("nameInputHelp");
 
 
-// Function to add a store to storeStorage
 const addStore = (storeOpeningDate, storeLocation, storeName) => {
-    const lastStoreId = storeStorage.length > 0 ? parseInt(storeStorage[storeStorage.length - 1].storeId) : -1;
+    const lastStoreId = storeStorage.length > 0 ? parseInt(storeStorage[storeStorage.length - 1].storeId) : 0;
+    console.log(lastStoreId);
 
     const storeId = (lastStoreId + 1).toString();
+    console.log(storeId);
 
     storeStorage.push({
         storeId: storeId,
@@ -25,63 +25,55 @@ const addStore = (storeOpeningDate, storeLocation, storeName) => {
 
     localStorage.setItem('storeStorage', JSON.stringify(storeStorage));
     console.log("Store added:", storeStorage);
-
-    
 };
-
-//function to restore the default style in the form 
 
 const restoreDefault = () => {
     nameInputHelp.innerText = "";
     nameInputHelp.classList.add("hidden");
     nameInput.style.border = "1px var(--light-gray-color) solid";
     nameInput.style.outline = "none";
-    // locaation 
     locationInputHelp.innerText = "";
     locationInputHelp.classList.add("hidden");
     locationInput.style.border = "1px var(--light-gray-color) solid";
     locationInput.style.outline = "none";
-    // date
     openingDateInputHelp.innerText = "";
     openingDateInputHelp.classList.add("hidden");
     openingDateInput.style.border = "1px var(--light-gray-color) solid";
     openingDateInput.style.outline = "none";
-  }
+}
 
 window.addEventListener('load', () => {
-
     document.getElementById('openingDateInput').value = '';
     document.getElementById('locationInput').value = '';
     document.getElementById('nameInput').value = '';
-
-})
+});
 
 document.getElementById('addButton').addEventListener('click', function() {
     const currentDate = new Date(); 
     restoreDefault();
     
-    if (locationInput.value === ''){
+    if (locationInput.value === '') {
         locationInputHelp.innerText = "Veuillez saisir une emplacement valide.";
         locationInputHelp.classList.remove("hidden");
         locationInput.style.border = "1px solid var(--red-color)";
-        locationInput.style.outline = "4px solid var(--error-outline-red-color)";
-        
-    } if (nameInput.value === '') {
+        locationInput.style.outline = "4px solid var(--error-outline-red-color)";  
+    } 
+    
+    if (nameInput.value === '') {
         nameInputHelp.innerText = "Veuillez saisir un nom valide.";
         nameInputHelp.classList.remove("hidden");
         nameInput.style.border = "1px solid var(--red-color)";
         nameInput.style.outline = "4px solid var(--error-outline-red-color)";
-        
-
     } 
     
     if (openingDateInput.value === '') {
         openingDateInputHelp.innerText = "Veuillez saisir une date d'ouverture valide.";
         openingDateInputHelp.classList.remove("hidden");
         openingDateInput.style.border = "1px solid var(--red-color)";
-        openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
-        
-    } else {
+        openingDateInput.style.outline = "4px solid var(--error-outline-red-color)"; 
+    } 
+    
+    else {
         const openingDate = new Date(openingDateInput.value); 
         const location = document.getElementById('locationInput').value;
         const name = document.getElementById('nameInput').value;
@@ -92,9 +84,10 @@ document.getElementById('addButton').addEventListener('click', function() {
             openingDateInputHelp.classList.remove("hidden");
             openingDateInput.style.border = "1px solid var(--red-color)";
             openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
-        } else if (location && name) { 
+        } 
+        
+        else if (location && name) { 
             addStore(openingDateInput.value, location, name);
-
             openingDateInput.value = "" ;
             locationInput.value = "" ; 
             nameInput.value = "" ;
