@@ -177,14 +177,14 @@ body, h1, h5, p, textarea {
   height: 33px;
 }
 
-.navbar-links {
+.navbar-links, .dashboard-nav-links {
   display: flex;
   list-style: none;
   padding-left: 0;
   margin: 0;
 }
 
-.navbar-links li:nth-of-type(1), .navbar-links li:nth-of-type(2) {
+.navbar-links li:nth-of-type(1), .dashboard-nav-links li:nth-of-type(1), .navbar-links li:nth-of-type(2), .dashboard-nav-links li:nth-of-type(2) {
   margin-right: 32px;
 }
 
@@ -193,7 +193,7 @@ body, h1, h5, p, textarea {
   color: var(--black-color);
 }
 
-.active-navbar-link {
+.active-navbar-link, .active-dashboard-nav-element {
   font-weight: 800;
 }
 
@@ -566,4 +566,55 @@ dialog::backdrop {
   font-weight: 400;
   line-height: 24px;
   color: var(--gray-color);
+}
+
+.dashboard-nav-elements {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-elements {
+  display: flex;
+  justify-content: space-between;
+  height: 598px;
+}
+
+.left-elements-container, .right-elements-container {
+  width: 592px;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.average-container, .mode-container, .median-container, .deviation-coefficient-container {
+  width: 100%;
+  height: 178px;
+  background-color: var(--ultra-light-gray-color);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.average-container p:nth-of-type(1), .average-container p:nth-of-type(3), .mode-container p:nth-of-type(1), .mode-container p:nth-of-type(3), .median-container p:nth-of-type(1), .median-container p:nth-of-type(3), .deviation-coefficient-container p:nth-of-type(1), .deviation-coefficient-container p:nth-of-type(3) {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.average-container p:nth-of-type(2), .mode-container p:nth-of-type(2), .median-container p:nth-of-type(2), .deviation-coefficient-container p:nth-of-type(2) {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 38px;
+  color: var(--black-color);
+}
+
+.chart-container {
+  width: 100%;
+  height: 388px;
+  background-color: var(--ultra-light-gray-color);
+  border-radius: 8px;
 }

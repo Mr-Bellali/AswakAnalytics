@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AswakAnalytics - Ajouter Magasin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar-container">
+      <div class="navbar-elements">
+        <img class="navbar-logo" src="./assets/img/aswakassalam-logo.png" alt="Logo">
+        <div>
+          <ul class="navbar-links">
+            <li class="active-navbar-link">Dashboard</li>
+            <li><a href="./store-list.html">Magasins</li>
+            <li><a href="./add-store.html">Ajouter Magasin</a></li>
+          </ul>
+        </div>
+        <button class="logout-button" id="logoutButton"><img src="./assets/img/logout-icon.svg" alt="Log out Icon">Se déconnecter</button>
+      </div>
+    </nav>
+    <main class="main-container">
+      <div class="dashboard-nav-elements">
+        <div>
+          <ul class="dashboard-nav-links">
+            <li class="active-dashboard-nav-element">Chiffre d'affaire</li>
+            <li>Effectif</li>
+            <li>Surface</li>
+          </ul>
+        </div>
+        <div class="custom-dropdown">
+          <div class="selected-option" id="locationSelect">
+            Année
+            <img class="arrow-icon" src="assets/img/dropdown-icon.svg">
+          </div>
+          <div class="dropdown-options">
+            <div>2024</div>
+            <div>2023</div>
+            <div>2022</div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-elements margin-top-84">
+        <div class="left-elements-container">
+          <div class="average-container">
+            <p>Moyenne Arithmethique Pondérée</p>
+            <p class="margin-top-12">4 655 000 DHS</p>
+            <p class="margin-top-24">Le chiffre d'affaires moyen de tous les magasins</p>
+          </div>
+          <div class="mode-container">
+            <p>Mode</p>
+            <p class="margin-top-12">4 764 000 DHS</p>
+            <p class="margin-top-24">Le chiffre d'affaires réalisé par le plus grand nombre de magasins est 4 764 000 DH</p>
+          </div>
+          <div class="median-container">
+            <p>Médiane</p>
+            <p class="margin-top-12">4 700 000 DHS</p>
+            <p class="margin-top-24">50% des magasins réalisent un chiffre d'affaires inférieur à 4 700 000  DHS et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat</p>
+          </div>
+        </div>
+        <div class="right-elements-container">
+          <div class="deviation-coefficient-container">
+            <p>Écart type et coefficient de variation</p>
+            <p class="margin-top-12">13.8%</p>
+            <p class="margin-top-24">Écart-type: 610,000 DHS. Coefficient de variation: 13.1%. Les chiffres  d'affaires sont principalement centrés autour de la moyenne.</p>
+          </div>
+          <div class="chart-container">
+
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer-container">
+      <div class="footer-elements">
+        <p>COPYRIGHT © 2024 ASWAK SALAM — TOUS DROITS RÉSERVÉS.</p>
+      </div>
+    </footer>
+  </body>
+  <script src="./assets/js/dashboard.js"></script>
+  <script src="assets/js/dropdown.js"></script>
+</html>
