@@ -1,31 +1,21 @@
 // Initialize empty storage objects
-let userStorage = JSON.parse(localStorage.getItem('userStorage')) || [];
 let storeStorage = JSON.parse(localStorage.getItem('storeStorage')) || [];
 let dataStorage = [];
 
-// Hardcoded default user
-const defaultUser = {
-    userId: "defaultUser123",
-    userEmail: "default@example.com",
-    userPassword: "defaultPassword",
-    isActive: true
-};
+const openingDateInput = document.getElementById('openingDateInput');
+const locationInput = document.getElementById('locationInput');
+const nameInput = document.getElementById('nameInput');
+const openingDateInputHelp = document.getElementById("openingDateInputHelp")
+const locationInputHelp = document.getElementById("locationInputHelp")
+const nameInputHelp = document.getElementById("nameInputHelp");
 
-// Add the default user to userStorage if not already added
-if (userStorage.length === 0) {
-    userStorage.push(defaultUser);
-    localStorage.setItem('userStorage', JSON.stringify(userStorage));
-}
 
 // Function to add a store to storeStorage
 const addStore = (storeOpeningDate, storeLocation, storeName) => {
-    // Get the last store ID from the storeStorage array
     const lastStoreId = storeStorage.length > 0 ? parseInt(storeStorage[storeStorage.length - 1].storeId) : -1;
 
-    // Increment the store ID by one
     const storeId = (lastStoreId + 1).toString();
 
-    // Add the store to storeStorage
     storeStorage.push({
         storeId: storeId,
         storeOpeningDate: storeOpeningDate,
@@ -33,22 +23,81 @@ const addStore = (storeOpeningDate, storeLocation, storeName) => {
         storeName: storeName
     });
 
-    // Store storeStorage in localStorage after adding a store
     localStorage.setItem('storeStorage', JSON.stringify(storeStorage));
     console.log("Store added:", storeStorage);
 
-    // Clear input fields after adding a store
+    
+};
+
+//function to restore the default style in the form 
+
+const restoreDefault = () => {
+    nameInputHelp.innerText = "";
+    nameInputHelp.classList.add("hidden");
+    nameInput.style.border = "1px var(--light-gray-color) solid";
+    nameInput.style.outline = "none";
+    // locaation 
+    locationInputHelp.innerText = "";
+    locationInputHelp.classList.add("hidden");
+    locationInput.style.border = "1px var(--light-gray-color) solid";
+    locationInput.style.outline = "none";
+    // date
+    openingDateInputHelp.innerText = "";
+    openingDateInputHelp.classList.add("hidden");
+    openingDateInput.style.border = "1px var(--light-gray-color) solid";
+    openingDateInput.style.outline = "none";
+  }
+
+window.addEventListener('load', () => {
+
     document.getElementById('openingDateInput').value = '';
     document.getElementById('locationInput').value = '';
     document.getElementById('nameInput').value = '';
-};
+
+})
 
 document.getElementById('addButton').addEventListener('click', function() {
-    // Get input values
-    const openingDate = document.getElementById('openingDateInput').value;
-    const location = document.getElementById('locationInput').value;
-    const name = document.getElementById('nameInput').value;
+    const currentDate = new Date(); 
+    restoreDefault();
+    
+    if (locationInput.value === ''){
+        locationInputHelp.innerText = "Veuillez saisir une emplacement valide.";
+        locationInputHelp.classList.remove("hidden");
+        locationInput.style.border = "1px solid var(--red-color)";
+        locationInput.style.outline = "4px solid var(--error-outline-red-color)";
+        
+    } if (nameInput.value === '') {
+        nameInputHelp.innerText = "Veuillez saisir un nom valide.";
+        nameInputHelp.classList.remove("hidden");
+        nameInput.style.border = "1px solid var(--red-color)";
+        nameInput.style.outline = "4px solid var(--error-outline-red-color)";
+        
 
-    // Add the store using the input values
-    addStore(openingDate, location, name);
+    } 
+    
+    if (openingDateInput.value === '') {
+        openingDateInputHelp.innerText = "Veuillez saisir une date d'ouverture valide.";
+        openingDateInputHelp.classList.remove("hidden");
+        openingDateInput.style.border = "1px solid var(--red-color)";
+        openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
+        
+    } else {
+        const openingDate = new Date(openingDateInput.value); 
+        const location = document.getElementById('locationInput').value;
+        const name = document.getElementById('nameInput').value;
+
+        if (openingDate > currentDate || isNaN(openingDate)) { 
+            const openingDateInputHelp = document.getElementById("openingDateInputHelp")
+            openingDateInputHelp.innerText = "Veuillez saisir une date d'ouverture valide.";
+            openingDateInputHelp.classList.remove("hidden");
+            openingDateInput.style.border = "1px solid var(--red-color)";
+            openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
+        } else if (location && name) { 
+            addStore(openingDateInput.value, location, name);
+
+            openingDateInput.value = "" ;
+            locationInput.value = "" ; 
+            nameInput.value = "" ;
+        }
+    }
 });
