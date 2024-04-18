@@ -526,6 +526,7 @@ dialog::backdrop {
   width: 100%;
   background-color: var(--light-gray-color);
   border-radius: 4px;
+  margin-top: 12px;
 }
 
 .horizontal-card-image-container {
@@ -533,7 +534,6 @@ dialog::backdrop {
   width: 196px;
   background-color: var(--light-gray-color);
   border-radius: 4px;
-  margin-top: 12px;
 }
 
 .vertical-card-info-container p:nth-of-type(1) {
