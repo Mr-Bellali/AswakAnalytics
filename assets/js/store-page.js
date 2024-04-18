@@ -1,25 +1,12 @@
-// Retrieve store locations from localStorage
-let storeLocations = [];
-if (localStorage.getItem('storeStorage')) {
-    const storeStorage = JSON.parse(localStorage.getItem('storeStorage'));
-    storeLocations = storeStorage.map(store => store.storeLocation);
-}
+const addDataButton = document.getElementById("addDataButton");
+const addDataModal = document.getElementById("addDataModal");
+const cancelButton = document.getElementById("cancelButton");
+const submitButton = document.getElementById("submitButton");
 
-// Get the select element
-const storeLocationSelect = document.getElementById('locationSelect');
-
-// Populate options for storeLocation select
-storeLocations.forEach(storeLocation => {
-    const option = document.createElement('option');
-    option.textContent = storeLocation;
-    storeLocationSelect.appendChild(option);
+addDataButton.addEventListener("click", () => {
+    addDataModal.showModal();
 });
 
-
-//function to change the id of the stores display
-
-
-function ChangeID(storeId, newStoreId) {
-    var storeDisplay = document.getElementById(storeId);
-    storeDisplay.id = newStoreId;
-}
+cancelButton.addEventListener("click", () => {
+    addDataModal.close();
+});

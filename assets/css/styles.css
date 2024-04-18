@@ -5,8 +5,11 @@
   --error-outline-red-color: #F5CCD6;
   --blue-color: #003B89;
   --white-color: #FFFFFF;
+  --dark-gray-color: #3C3C3C;
   --light-gray-color: #D4D4D4;
   --super-light-gray-color: #FAFAFA;
+  --ultra-light-gray-color: #EBEBEB;
+  --super-ultra-gray-color: #F9F9F9;
 }
 
 * {
@@ -69,12 +72,17 @@ body, h1, h5, p, textarea {
   margin-top: 84px;
 }
 
-.auth-container {
+.auth-container, .form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
+}
+
+.form-container {
+  margin-top: 84px;
+  margin-bottom: 84px;
 }
 
 .auth-form {
@@ -91,12 +99,12 @@ body, h1, h5, p, textarea {
   margin-right: auto;
 }
 
-.auth-form-header {
+.auth-form-header, .dashboard-elements h1 {
   font-size: 1.875rem;
   font-weight: 800;
 }
 
-.auth-form-header-supporting-text, .dashboard-elements p {
+.auth-form-header-supporting-text, .dashboard-elements p, .footer-elements {
   color: var(--gray-color);
 }
 
@@ -197,7 +205,7 @@ body, h1, h5, p, textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 16px;
+  padding: 10 px 16px;
   font-weight: 600;
   line-height: 20px;
   font-size: 14px;
@@ -215,9 +223,12 @@ body, h1, h5, p, textarea {
 /* Main */
 
 .main-container {
+  width: 1216px;
+  max-width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin: 84px auto;
   flex: 1;
 }
 
@@ -291,4 +302,156 @@ body, h1, h5, p, textarea {
   background-color: var(--blue-color);
   border: none;
   padding: 11px 0;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  color: var(--white-color);
+  background-color: var(--blue-color);
+  font-weight: 600;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  background-color: #004db3;
+}
+
+.add-button img {
+  margin-right: 8px;
+}
+
+.table-container {
+  overflow: auto;
+}
+
+.dashboard-table {
+  border: 1px solid var(--light-gray-color);
+  border-radius: 12px;
+  border-spacing: 0;
+  overflow: hidden;
+  width: 1216px;
+}
+
+.dashboard-table-header {
+  background-color: var(--super-light-gray-color);
+  height: auto;
+}
+
+.dashboard-table-header th, .dashboard-table tr td {
+  border-bottom: 1px solid var(--ultra-light-gray-color);
+}
+
+.dashboard-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dashboard-table th {
+  text-align: left;
+  padding: 11px 0 11px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark-gray-color);
+}
+
+.dashboard-table td {
+  padding: 24px 0 24px 24px;
+  font-size: 14px;
+}
+
+.year-header, .turnover-header, .effective-header, .surface-header {
+  width: 259px;
+}
+
+.footer-container {
+  width: 100%;
+  border-top: 1px var(--light-gray-color) solid;
+  display: flex;
+  align-items: center;
+}
+
+.footer-elements {
+  width: 1216px;
+  margin: 21px auto;
+}
+
+.footer-elements p {
+  font-size: 0.875rem;
+}
+
+.modify-button {
+  background-color: transparent;
+  color: var(--dark-gray-color);
+  border: none;
+  padding: 0;
+  margin-right: 12px;
+  font-weight: 600;
+}
+
+.delete-button {
+  background-color: transparent;
+  color: var(--blue-color);
+  border: none;
+  padding: 0;
+  font-weight: 600;
+}
+
+.modal-container {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+dialog::backdrop {
+  background-color: var(--black-color);
+  opacity: 0.7;
+}
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.selected-option {
+  position: relative;
+  border: 1px var(--light-gray-color) solid;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: var(--black-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown-options {
+  position: absolute;
+  display: none;
+  border: 1px var(--light-gray-color) solid;
+  border-radius: 8px;
+  z-index: 1;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  user-select: none;
+  height: 20px;
+  width: 20px;
+}
+
+.dropdown-options div {
+  padding: 10px 16px;
+  cursor: pointer;
+  background-color: var(--white-color);
+}
+
+.dropdown-options div:hover {
+  background-color: var(--super-ultra-gray-color);
 }

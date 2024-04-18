@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AswakAnalytics - Ajouter Magasin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar-container">
+      <div class="navbar-elements">
+        <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Logo">
+        <div>
+          <ul class="navbar-links">
+            <li><a href="./dashboard.html">Dashboard</a></li>
+            <li class="active-navbar-link">Magasins</li>
+            <li><a href="./add-store.html">Ajouter Magasin</a></li>
+          </ul>
+        </div>
+        <button class="logout-button" id="logoutButton"><img src="assets/img/logout-icon.svg" alt="Log out Icon">Se déconnecter</button>
+      </div>
+    </nav>
+    <main class="main-container">
+      <h1 id="dashboard-heading">Liste des Magasins</h1>
+      <div>
+        <div class="custom-dropdown">
+          <div class="selected-option" id="">
+            <!-- DEFAULT OPTION GOES HERE, NOT SELECTABLE -->
+            Emplacement
+            <img class="arrow-icon" src="assets/img/dropdown-icon.svg">
+          </div>
+          <div class="dropdown-options">
+            <!-- AVAILABKE OPTIONS TO CHOOSE FROM GOES HERE, SELECTABLE -->
+            <div>Casablanca</div>
+            <div>Rabat</div>
+            <div>El Jadida</div>
+          </div>
+        </div>
+        <div>
+          <button></button>
+          <button></button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer-container">
+      <div class="footer-elements">
+        <p>COPYRIGHT © 2024 ASWAK SALAM — TOUS DROITS RÉSERVÉS.</p>
+      </div>
+    </footer>
+</body>
+<script src="assets/js/store-list.js"></script>
+<script src="assets/js/dropdown.js"></script>
+</html>
