@@ -1,90 +1,41 @@
-let storeLocations = [];
+const horizontalLayoutButton = document.getElementById("horizontalLayoutButton");
+const verticalLayoutButton = document.getElementById("verticalLayoutButton");
+const horizontalLayoutButtonIcon = document.getElementById("horizontalLayoutButtonIcon");
+const verticalLayoutButtonIcon = document.getElementById("verticalLayoutButtonIcon");
 
-if (localStorage.getItem('storeStorage')) {
-    const storeStorage = JSON.parse(localStorage.getItem('storeStorage'));
-    storeLocations = storeStorage.map(store => store.storeLocation);
-    // Remove duplicates
-    storeLocations = Array.from(new Set(storeLocations));
-}
+const sortingElements = document.querySelector(".sorting-elements");
 
-const storeLocationSelect = document.getElementById('locationSelect');
+horizontalLayoutButton.addEventListener("click", () => {
+    verticalLayoutButton.classList.remove("selected-orientation-button");
+    horizontalLayoutButton.classList.add("selected-orientation-button");
+    verticalLayoutButtonIcon.src="./assets/img/blue-vertical-sort-icon.svg";
+    horizontalLayoutButtonIcon.src="./assets/img/white-horizontal-sort-icon.svg";
 
-storeLocations.forEach(storeLocation => {
-    const option = document.createElement('option');
-    option.textContent = storeLocation;
-    storeLocationSelect.appendChild(option);
-});
+    let storeData = JSON.parse(localStorage.getItem("storeStorage"));
+    let horizontalLayout = `<div class="horizontal-cards-list-container margin-top-20">`
 
-storeLocationSelect.addEventListener('change', function () {
-    const selectedLocation = this.value;
-    renderData(selectedLocation);
-});
+    storeData.forEach((store) => {
+        horizontalLayout += `
+        <div class="horizontal-card-container" id="${store.storeId}">
+          <div class="horizontal-card-image-container">
 
-document.addEventListener("DOMContentLoaded", function () {
-    renderData("all");
-});
-
-function renderData(selectedLocation) {
-    const stores = JSON.parse(localStorage.getItem("storeStorage")) || [];
-    const storeDisplayHorizontal = document.getElementById('stores-display-horizontal');
-    const storeDisplayVertical = document.getElementById('stores-display-vertical');
-    storeDisplayHorizontal.innerHTML = "";
-    storeDisplayVertical.innerHTML = "";
-
-    let filteredStores;
-    if (selectedLocation === "all") {
-        filteredStores = stores;
-    } else {
-        filteredStores = stores.filter(store => store.storeLocation === selectedLocation);
-    }
-
-    filteredStores.forEach(function (store) {
-        const newCard = document.createElement("div");
-        newCard.classList.add("horizontal-card");
-        const newVerticalCard = document.createElement("div");
-        newVerticalCard.classList.add("vertical-card");
-
-        newCard.innerHTML = `
-            <div class="store-img">
-                <img src="./assets/img/aswa9-salam.jpg">
-            </div>
-            <div class="store-detail-holder">
-                <h3> ${store.storeName} </h3>
-                <p> ${store.storeLocation}</p>
-            </div>
-        `;
-
-        newVerticalCard.innerHTML = `
-            <div class="store-img">
-                <img src="./assets/img/aswa9-salam.jpg">
-            </div>
-            <div class="store-detail-holder">
-                <h3> ${store.storeName} </h3>
-                <p> ${store.storeLocation}</p>
-            </div>
-        `;
-
-        storeDisplayHorizontal.appendChild(newCard);
-        storeDisplayVertical.appendChild(newVerticalCard);
+          </div>
+          <div class="horizontal-card-info-container">
+            <p>${store.storeName}</p>
+            <p>${store.storeLocation}</p>
+          </div>
+        </div>
+        `
     });
-}
 
-function toggleDisplay(displayMode) {
-    const verticalDisplay = document.getElementById('stores-display-vertical');
-    const horizontalDisplay = document.getElementById('stores-display-horizontal');
-    if (displayMode === "vertical") {
-        verticalDisplay.style.display = "flex";
-        horizontalDisplay.style.display = "none";
-    } else {
-        verticalDisplay.style.display = "none";
-        horizontalDisplay.style.display = "flex";
-    }
-}
-
-document.getElementById("btn").addEventListener("click", () => {
-    toggleDisplay("vertical");
+    horizontalLayout += `</div>`;
+    
+    sortingElements.insertAdjacentHTML("afterend", horizontalLayout);
 });
 
-document.getElementById("btn1").addEventListener("click", () => {
-    toggleDisplay("horizontal");
+verticalLayoutButton.addEventListener("click", () => {
+    horizontalLayoutButton.classList.remove("selected-orientation-button");
+    verticalLayoutButton.classList.add("selected-orientation-button");
+    verticalLayoutButtonIcon.src="./assets/img/white-vertical-sort-icon.svg";
+    horizontalLayoutButtonIcon.src="./assets/img/blue-horizontal-sort-icon.svg";
 });
