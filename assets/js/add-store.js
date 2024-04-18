@@ -51,12 +51,14 @@ window.addEventListener('load', () => {
 document.getElementById('addButton').addEventListener('click', function() {
     const currentDate = new Date(); 
     restoreDefault();
+    let isError = false;
     
     if (locationInput.value === '') {
         locationInputHelp.innerText = "Veuillez saisir une emplacement valide.";
         locationInputHelp.classList.remove("hidden");
         locationInput.style.border = "1px solid var(--red-color)";
-        locationInput.style.outline = "4px solid var(--error-outline-red-color)";  
+        locationInput.style.outline = "4px solid var(--error-outline-red-color)";
+        isError = true;
     } 
     
     if (nameInput.value === '') {
@@ -64,17 +66,19 @@ document.getElementById('addButton').addEventListener('click', function() {
         nameInputHelp.classList.remove("hidden");
         nameInput.style.border = "1px solid var(--red-color)";
         nameInput.style.outline = "4px solid var(--error-outline-red-color)";
+        isError = true;
     } 
     
     if (openingDateInput.value === '') {
         openingDateInputHelp.innerText = "Veuillez saisir une date d'ouverture valide.";
         openingDateInputHelp.classList.remove("hidden");
         openingDateInput.style.border = "1px solid var(--red-color)";
-        openingDateInput.style.outline = "4px solid var(--error-outline-red-color)"; 
-    } 
-    
-    else {
-        const openingDate = new Date(openingDateInput.value); 
+        openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
+        isError = true;
+    }
+
+    if (!isError) {
+        const openingDate = new Date(openingDateInput.value);
         const location = document.getElementById('locationInput').value;
         const name = document.getElementById('nameInput').value;
 
@@ -86,7 +90,7 @@ document.getElementById('addButton').addEventListener('click', function() {
             openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
         } 
         
-        else if (location && name) { 
+        else { 
             addStore(openingDateInput.value, location, name);
             openingDateInput.value = "" ;
             locationInput.value = "" ; 
