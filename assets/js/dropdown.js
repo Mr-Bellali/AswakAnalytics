@@ -10,7 +10,7 @@ customDropdowns.forEach(function (select) {
   
     // Function to set the text color of selected-option
     function setTextColor() {
-        if (selectedOption.textContent.trim() === 'Formateurs' || selectedOption.textContent.trim() === 'Bootcamps') {
+        if (selectedOption.textContent.trim() === 'Emplacement') {
             selectedOption.style.color = 'var(--light-gray-color)';
         } else {
             selectedOption.style.color = 'var(--black-color)'; // Reset to default color
