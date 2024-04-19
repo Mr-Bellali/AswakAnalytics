@@ -99,12 +99,12 @@ body, h1, h5, p, textarea {
   margin-right: auto;
 }
 
-.auth-form-header, .dashboard-elements h1, .main-heading {
+.auth-form-header, .dashboard-elements h1, .main-heading, .store-dashboard-elements h1 {
   font-size: 1.875rem;
   font-weight: 800;
 }
 
-.auth-form-header-supporting-text, .dashboard-elements p, .footer-elements {
+.auth-form-header-supporting-text, .dashboard-elements p, .footer-elements, .store-dashboard-elements p {
   color: var(--gray-color);
 }
 
@@ -527,7 +527,6 @@ dialog::backdrop {
   width: 100%;
   background-color: var(--light-gray-color);
   border-radius: 4px;
-  margin-top: 12px;
 }
 
 .horizontal-card-image-container {
@@ -535,6 +534,10 @@ dialog::backdrop {
   width: 196px;
   background-color: var(--light-gray-color);
   border-radius: 4px;
+}
+
+.vertical-card-info-container {
+  margin-top: 12px;
 }
 
 .vertical-card-info-container p:nth-of-type(1) {
@@ -581,6 +584,11 @@ dialog::backdrop {
   height: 598px;
 }
 
+.store-dashboard-elements {
+  display: flex;
+  flex-direction: column;
+}
+
 .left-elements-container, .right-elements-container {
   width: 592px;
   max-width: 100%;
@@ -618,4 +626,8 @@ dialog::backdrop {
   height: 388px;
   background-color: var(--ultra-light-gray-color);
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
 }
