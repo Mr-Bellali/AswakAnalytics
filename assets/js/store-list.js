@@ -202,16 +202,21 @@ document.addEventListener("click", (e) => {
     let stores = JSON.parse(localStorage.getItem("storeStorage"));
 
     let store = null;
-
+    let temporaryStoreId = null;
     for (let i = 0; i < stores.length; i++) {
       if (stores[i].storeId == dataIndex) {
         store = stores[i];
+        temporaryStoreId = stores[i].storeId;
         break;
       }
     }
-    console.log(store);
+
+    try {
+      localStorage.setItem("temporaryStoreId", temporaryStoreId);
+      console.log("temporaryStoreId set to:", temporaryStoreId);
+    } catch (error) {
+      console.error("Error setting temporaryStoreId:", error);
+    }
+    window.location.href = "store-page.html";
   }
 });
-
-// Exporting store variable
-// export default { store };

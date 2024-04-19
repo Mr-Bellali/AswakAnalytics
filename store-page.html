@@ -37,56 +37,6 @@
                 <th class="surface-header">Surface</th>
                 <th class="actions-header"></th>
               </tr>
-              <tr>
-                <td>2014</td>
-                <td>24000000</td>
-                <td>354</td>
-                <td>720</td>
-                <td>
-                  <button class="modify-button" id="modifyButton">Modifier</button>
-                  <button class="delete-button" id="deleteButton">Supprimer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>2014</td>
-                <td>24000000</td>
-                <td>354</td>
-                <td>720</td>
-                <td>
-                  <button class="modify-button" id="modifyButton">Modifier</button>
-                  <button class="delete-button" id="deleteButton">Supprimer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>2014</td>
-                <td>24000000</td>
-                <td>354</td>
-                <td>720</td>
-                <td>
-                  <button class="modify-button" id="modifyButton">Modifier</button>
-                  <button class="delete-button" id="deleteButton">Supprimer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>2014</td>
-                <td>24000000</td>
-                <td>354</td>
-                <td>720</td>
-                <td>
-                  <button class="modify-button" id="modifyButton">Modifier</button>
-                  <button class="delete-button" id="deleteButton">Supprimer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>2014</td>
-                <td>24000000</td>
-                <td>354</td>
-                <td>720</td>
-                <td>
-                  <button class="modify-button" id="modifyButton">Modifier</button>
-                  <button class="delete-button" id="deleteButton">Supprimer</button>
-                </td>
-              </tr>
             </table>
           </div>
           <dialog class="modal-container" id="addDataModal">
@@ -106,8 +56,40 @@
               <input id="surfaceInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
               <p class="input-hint margin-top-6 hidden" id="surfaceInputHelp"></p>
               <div class="form-dual-action-buttons-container margin-top-32">
-                <button id="cancelButton">Annuler</button>
-                <button id="submitButton">Soumettre</button>
+                <button id="cancelAddButton">Annuler</button>
+                <button id="submitAddButton">Soumettre</button>
+              </div>
+            </div>
+          </dialog>
+          <dialog class="modal-container" id="editDataModal">
+            <div class="form-content">
+              <h5 class="form-header">Modifier les données</h5>
+              <p class="form-header-supporting-text margin-top-8">Modifiez les informations suivantes pour appliquer les changements souhaités aux données sélectionnées.</p>
+              <label class="margin-top-32" for="yearInput">Année</label>
+              <input id="yearInput" type="text" placeholder="Revalidation du token JWT expiré" required>
+              <p class="input-hint margin-top-6 hidden" id="yearInputHelp"></p>
+              <label class="margin-top-16" for="turnoverInput">Chiffre d'affaire</label>
+              <input id="turnoverInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+              <p class="input-hint margin-top-6 hidden" id="turnoverInputHelp"></p>
+              <label class="margin-top-16" for="workforceInput">Effectif</label>
+              <input id="workforceInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+              <p class="input-hint margin-top-6 hidden" id="workforceInputHelp"></p>
+              <label class="margin-top-16" for="surfaceInput">Surface</label>
+              <input id="surfaceInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+              <p class="input-hint margin-top-6 hidden" id="surfaceInputHelp"></p>
+              <div class="form-dual-action-buttons-container margin-top-32">
+                <button id="cancelEditButton">Annuler</button>
+                <button id="applyEditButton">Appliquer</button>
+              </div>
+            </div>
+          </dialog>
+          <dialog class="modal-container" id="deleteDataModal">
+            <div class="form-content">
+              <h5 class="form-header">Supprimer la difficulté</h5>
+              <p class="form-header-supporting-text margin-top-8">Êtes-vous sûr de vouloir supprimer définitivement cette difficulté? Cette action est irréversible.</p>
+              <div class="form-dual-action-buttons-container margin-top-32">
+                <button id="cancelDeleteButton">Annuler</button>
+                <button id="confirmDeleteButton">Supprimer</button>
               </div>
             </div>
           </dialog>
@@ -119,5 +101,5 @@
       </div>
     </footer>
 </body>
-<script src="assets/js/store-page.js"></script>
+<script src="./store-page.js"></script>
 </html>

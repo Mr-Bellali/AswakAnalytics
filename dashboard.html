@@ -27,8 +27,8 @@
       <div class="dashboard-nav-elements">
         <div>
           <ul class="dashboard-nav-links">
-            <li class="active-dashboard-nav-element">Chiffre d'affaire</li>
-            <li>Effectif</li>
+            <li>Chiffre d'affaire</li>
+            <li class="active-dashboard-nav-element">Effectif</li>
             <li>Surface</li>
           </ul>
         </div>
@@ -48,24 +48,24 @@
         <div class="left-elements-container">
           <div class="average-container">
             <p>Moyenne Arithmethique Pondérée</p>
-            <p class="margin-top-12">4 655 000 DHS</p>
+            <p class="margin-top-12" id="averageValue">4 655 000 DHS</p>
             <p class="margin-top-24">Le chiffre d'affaires moyen de tous les magasins</p>
           </div>
           <div class="mode-container">
             <p>Mode</p>
-            <p class="margin-top-12">4 764 000 DHS</p>
+            <p class="margin-top-12" id="modeValue">4 764 000 DHS</p>
             <p class="margin-top-24">Le chiffre d'affaires réalisé par le plus grand nombre de magasins est 4 764 000 DH</p>
           </div>
           <div class="median-container">
             <p>Médiane</p>
-            <p class="margin-top-12">4 700 000 DHS</p>
+            <p class="margin-top-12" id="medianValue">4 700 000 DHS</p>
             <p class="margin-top-24">50% des magasins réalisent un chiffre d'affaires inférieur à 4 700 000  DHS et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat</p>
           </div>
         </div>
         <div class="right-elements-container">
           <div class="deviation-coefficient-container">
             <p>Écart type et coefficient de variation</p>
-            <p class="margin-top-12">13.8%</p>
+            <p class="margin-top-12" id="deviationCoefficient">13.8%</p>
             <p class="margin-top-24">L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de 610 000 DHS, et le coefficient de variation est de 0,131</p>
           </div>
           <div class="chart-container">
@@ -84,32 +84,45 @@
   <script src="assets/js/dropdown.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const ctx = document.getElementById('myChart');
+    // Your data
+    const data = [54, 43, 47, 49, 33, 61, 53, 50, 48, 47, 40, 39, 36, 43, 45, 46, 47, 48, 33, 50, 49, 47, 46, 45, 48, 49, 35, 41, 60];
+
+    // Process the data to calculate frequencies
+    const frequencyData = {};
+    data.forEach(value => {
+    if (frequencyData[value]) {
+        frequencyData[value]++;
+    } else {
+        frequencyData[value] = 1;
+    }
+    });
+
+    // Prepare the chart data
+    const labels = Object.keys(frequencyData);
+    const dataValues = Object.values(frequencyData);
+
+    // Create the bar chart
+    const ctx = document.getElementById('myChart').getContext('2d');
     Chart.defaults.font.family = "'Nunito Sans', sans-serif";
-  
+
     new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    type: 'bar',
+    data: {
+        labels: labels,
         datasets: [{
-          label: 'Number of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Frequency',
+          data: dataValues,
           borderWidth: 1,
-          backgroundColor: [
-            'rgba(0, 59, 137, 0.5)'
-          ],
-          borderColor: [
-            'rgba(16, 16, 16, 0.6)'
-          ]
+          backgroundColor: 'rgba(0, 59, 137, 0.5)',
+          borderColor: 'rgba(16, 16, 16, 0.6)'
         }]
-      },
-      options: {
+    },
+    options: {
         scales: {
           y: {
-            beginAtZero: true
-            ,
+            beginAtZero: true,
             ticks: {
-              display: false,
+              display: true,
             },
             grid: {
               drawTicks: false,
@@ -129,7 +142,7 @@
             display: false
           }
         }
-      }
+    }
     });
   </script>  
 </html>
