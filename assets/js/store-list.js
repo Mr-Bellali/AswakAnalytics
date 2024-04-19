@@ -27,7 +27,7 @@ dropdownOptions.addEventListener("click", (e) => {
 
   let filteredStores;
 
-  if (dropdownValue === "All") {
+  if (dropdownValue === "Tous") {
     filteredStores = stores;
   } else {
     filteredStores = stores.filter(

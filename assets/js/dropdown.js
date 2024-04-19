@@ -5,15 +5,7 @@ customDropdowns.forEach(function (select) {
     let dropdownOptions = select.querySelector('.dropdown-options');
     let options = dropdownOptions.querySelectorAll('div');
     let arrowIcon = select.querySelector('.arrow-icon');
-  
-    function setTextColor() {
-        if (selectedOption.textContent.trim() === 'Emplacement' || selectedOption.textContent.trim() === 'Année') {
-            selectedOption.style.color = 'var(--light-gray-color)';
-        } else {
-            selectedOption.style.color = 'var(--black-color)';
-        }
-    }
-  
+
     function toggleArrowRotation() {
         if (dropdownOptions.style.display === 'block') {
             arrowIcon.style.transform = 'translate(-50%, -50%) rotate(180deg)';
@@ -40,7 +32,6 @@ customDropdowns.forEach(function (select) {
             dropdownOptions.style.display = 'none';
             selectedOption.appendChild(arrowIcon);
             toggleArrowRotation();
-            setTextColor();
         }
     });
   
@@ -51,6 +42,4 @@ customDropdowns.forEach(function (select) {
             selectedOption.appendChild(arrowIcon);
         }
     });
-
-    setTextColor();
 });

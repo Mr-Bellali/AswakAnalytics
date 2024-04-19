@@ -12,21 +12,23 @@
   <body>
     <nav class="navbar-container">
       <div class="navbar-elements">
-        <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Logo">
-        <div>
-          <ul class="navbar-links">
-            <li><a href="./dashboard.html">Dashboard</a></li>
-            <li><a href="./store-list.html">Magasins</a></li>
-            <li><a href="./add-store.html">Ajouter Magasin</a></li>
-          </ul>
+        <div class="navbar-left-elements">
+          <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Logo">
+          <div>
+            <ul class="navbar-links">
+              <li><a href="./dashboard.html">Dashboard</a></li>
+              <li><a href="./store-list.html">Magasins</a></li>
+              <li><a href="./add-store.html">Ajouter Magasin</a></li>
+            </ul>
+          </div>
         </div>
-        <button class="logout-button" id="logoutButton"><img src="assets/img/logout-icon.svg" alt="Log out Icon">Se déconnecter</button>
+        <button class="logout-button" id="logoutButton"><img src="assets/img/logout-icon.svg" alt="Log out Icon"></button>
       </div>
     </nav>
     <main class="main-container">
         <div class="store-dashboard-elements">
-          <h1 id="dashboard-heading">Aswak Assalam Sidi Maarouf</h1>
-          <p id="heading-supporting-text" class="margin-top-12">À Casablanca</p>
+          <h1 id="dashboard-heading"></h1>
+          <p class="margin-top-12">À <span id="heading-supporting-text"></span></p>
           <button class="add-button margin-top-84" id="addDataButton"><img src="./assets/img/add-icon.svg">Ajouter des données</button>
           <div class="table-container">
             <table id="dashboard-table" class="dashboard-table margin-top-20">
@@ -66,17 +68,17 @@
               <h5 class="form-header">Modifier les données</h5>
               <p class="form-header-supporting-text margin-top-8">Modifiez les informations suivantes pour appliquer les changements souhaités aux données sélectionnées.</p>
               <label class="margin-top-32" for="yearInput">Année</label>
-              <input id="yearInput" type="text" placeholder="Revalidation du token JWT expiré" required>
-              <p class="input-hint margin-top-6 hidden" id="yearInputHelp"></p>
+              <input id="yearInputModify" type="text" placeholder="Revalidation du token JWT expiré" required>
+              <p class="input-hint margin-top-6 hidden" id="yearInputModifyHelp"></p>
               <label class="margin-top-16" for="turnoverInput">Chiffre d'affaire</label>
-              <input id="turnoverInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="turnoverInputHelp"></p>
+              <input id="turnoverInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+              <p class="input-hint margin-top-6 hidden" id="turnoverInputModifyHelp"></p>
               <label class="margin-top-16" for="workforceInput">Effectif</label>
-              <input id="workforceInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="workforceInputHelp"></p>
+              <input id="workforceInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+              <p class="input-hint margin-top-6 hidden" id="workforceInputModifyHelp"></p>
               <label class="margin-top-16" for="surfaceInput">Surface</label>
-              <input id="surfaceInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="surfaceInputHelp"></p>
+              <input id="surfaceInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+              <p class="input-hint margin-top-6 hidden" id="surfaceInputModifyHelp"></p>
               <div class="form-dual-action-buttons-container margin-top-32">
                 <button id="cancelEditButton">Annuler</button>
                 <button id="applyEditButton">Appliquer</button>
@@ -97,7 +99,7 @@
     </main>
     <footer class="footer-container">
       <div class="footer-elements">
-        <p>COPYRIGHT © 2024 ASWAK SALAM — TOUS DROITS RÉSERVÉS.</p>
+        <p>COPYRIGHT © 2024 ASWAK ASSALAM — TOUS DROITS RÉSERVÉS.</p>
       </div>
     </footer>
 </body>

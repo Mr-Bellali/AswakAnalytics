@@ -11,9 +11,55 @@ const deleteDataModal = document.getElementById("deleteDataModal");
 const cancelDeleteButton = document.getElementById("cancelDeleteButton");
 const confirmDeleteButton = document.getElementById("confirmDeleteButton");
 
+
+const storeStorage = JSON.parse(localStorage.getItem("storeStorage"));
 const temporaryStoreId = localStorage.getItem("temporaryStoreId");
 
-console.log(temporaryStoreId);
+//modify inputs 
+const yearInputModify = document.getElementById("yearInputModify");
+const turnoverInputModify = document.getElementById("turnoverInputModify");
+const workforceInputModify = document.getElementById("workforceInputModify");
+const surfaceInputModify = document.getElementById("surfaceInputModify");
+
+//modify help 
+const yearInputModifyHelp = document.getElementById("yearInputModifyHelp");
+const turnoverInputModifyHelp = document.getElementById("turnoverInputModifyHelp");
+const workforceInputModifyHelp = document.getElementById("workforceInputModifyHelp");
+const surfaceInputModifyHelp = document.getElementById("surfaceInputModifyHelp");
+
+// titles 
+
+const dashboardHeading = document.getElementById("dashboard-heading");
+const headingSupportingText = document.getElementById("heading-supporting-text")
+
+let dataIndex ;
+
+dashboardHeading.innerHTML = `${storeStorage[temporaryStoreId].storeName}`
+headingSupportingText.innerHTML = `${storeStorage[temporaryStoreId].storeLocation}`
+
+
+
+const restoreModifyDefault = () => {
+    yearInputModifyHelp.innerHTML = "";
+    yearInputModifyHelp.classList.add("hidden");
+    yearInputModify.style.border = "1px var(--light-gray-color) solid";
+    yearInputModify.style.outline = "none";
+
+    turnoverInputModifyHelp.innerHTML = "";
+    turnoverInputModifyHelp.classList.add("hidden");
+    turnoverInputModify.style.border = "1px var(--light-gray-color) solid";
+    turnoverInputModify.style.outline = "none";
+
+    workforceInputModifyHelp.innerHTML = "";
+    workforceInputModifyHelp.classList.add("hidden");
+    workforceInputModify.style.border = "1px var(--light-gray-color) solid";
+    workforceInputModify.style.outline = "none";
+
+    surfaceInputModifyHelp.innerHTML = "";
+    surfaceInputModifyHelp.classList.add("hidden");
+    surfaceInputModify.style.border = "1px var(--light-gray-color) solid";
+    surfaceInputModify.style.outline = "none";
+};
 
 var dataStorage = JSON.parse(localStorage.getItem("dataStorage")) || [];
 
@@ -39,15 +85,11 @@ document.addEventListener('DOMContentLoaded' , function () {
 });
 
 function renderData() {
-    console.log("temporaryStoreId:", temporaryStoreId);
     const dataStorages = JSON.parse(localStorage.getItem("dataStorage")) || [];
-    console.log("dataStorages:", dataStorages);
     const dashboardTable = document.getElementById("dashboard-table");
 
-    dataStorages.forEach(function (dataStorage) {
-        console.log("dataStorage.storeId:", dataStorage.storeId);
+    dataStorages.forEach(function (dataStorage , index) {
         if (dataStorage.storeId === temporaryStoreId) {
-            console.log("Matched storeId:", dataStorage.storeId);
             const newLine = document.createElement("tr");
             newLine.innerHTML = `
             <td>${dataStorage.dataYear}</td>
@@ -55,8 +97,8 @@ function renderData() {
             <td>${dataStorage.dataWorkforce}</td>
             <td>${dataStorage.dataSurface}</td>
             <td>
-              <button class="modify-button" id="modifyButton">Modifier</button>
-              <button class="delete-button" id="deleteButton">Supprimer</button>
+              <button class="modify-button" id="modifyButton" data-index="${index}">Modifier</button>
+              <button class="delete-button" id="deleteButton" data-index="${index}">Supprimer</button>
             </td>
             `;
             dashboardTable.appendChild(newLine);
@@ -64,12 +106,84 @@ function renderData() {
     });
 
     const modifyButtons = document.querySelectorAll("#modifyButton");
-
+    
     modifyButtons.forEach((button) => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", (e) => {
+            dataIndex = e.target.dataset.index;
+
+            yearInputModify.value = dataStorage[dataIndex].dataYear;
+            turnoverInputModify.value = dataStorage[dataIndex].dataTurnover;
+            workforceInputModify.value = dataStorage[dataIndex].dataWorkforce;
+            surfaceInputModify.value = dataStorage[dataIndex].dataSurface;
             editDataModal.showModal();
         });
     });
+
+    cancelEditButton.addEventListener("click" , () => {
+        editDataModal.close()
+    })
+    
+    applyEditButton.addEventListener("click", ()=>{
+        restoreModifyDefault(); 
+
+        let isError = false;
+
+        if (yearInputModify.value === '' || isNaN(yearInputModify.value)) {
+            yearInputHelp.innerText = "Veuillez saisir un emplacement valide.";
+            yearInputHelp.classList.remove("hidden");
+            yearInputModify.style.border = "1px solid var(--red-color)";
+            yearInputModify.style.outline = "4px solid var(--error-outline-red-color)";
+            isError = true;
+        }
+        
+        if (turnoverInputModify.value === '' || isNaN(turnoverInputModify.value)) {
+            turnoverInputModifyHelp.innerText = "Veuillez saisir un emplacement valide.";
+            turnoverInputModifyHelp.classList.remove("hidden");
+            turnoverInputModify.style.border = "1px solid var(--red-color)";
+            turnoverInputModify.style.outline = "4px solid var(--error-outline-red-color)";
+            isError = true;
+        }
+        
+        if (workforceInputModify.value === '' || isNaN(workforceInputModify.value)) {
+            workforceInputModifyHelp.innerText = "Veuillez saisir un emplacement valide.";
+            workforceInputModifyHelp.classList.remove("hidden");
+            workforceInputModify.style.border = "1px solid var(--red-color)";
+            workforceInputModify.style.outline = "4px solid var(--error-outline-red-color)";
+            isError = true;
+        }
+        
+        if (surfaceInputModify.value === '' || isNaN(surfaceInputModify.value)) {
+            surfaceInputModifyHelp.innerText = "Veuillez saisir un emplacement valide.";
+            surfaceInputModifyHelp.classList.remove("hidden");
+            surfaceInputModify.style.border = "1px solid var(--red-color)";
+            surfaceInputModify.style.outline = "4px solid var(--error-outline-red-color)";
+            isError = true;
+        } 
+        
+        if (!isError) { 
+            const newDataYear = yearInputModify.value;
+            const newDataTurnOver = turnoverInputModify.value;
+            const newDataWorkForce = workforceInputModify.value;
+            const newDataSurface = surfaceInputModify.value;
+            
+            
+            dataStorage[dataIndex].dataYear = newDataYear;
+            dataStorage[dataIndex].dataTurnover = newDataTurnOver;
+            dataStorage[dataIndex].dataWorkforce = newDataWorkForce;
+            dataStorage[dataIndex].dataSurface = newDataSurface;
+        
+            localStorage.setItem("dataStorage", JSON.stringify(dataStorage));
+        
+            editDataModal.close();
+        
+            location.reload();
+        }
+        
+        
+        
+    })
+
+
 
     const deleteButtons = document.querySelectorAll("#deleteButton");
 
@@ -78,6 +192,19 @@ function renderData() {
             deleteDataModal.showModal();
         });
     });
+
+    cancelDeleteButton.addEventListener("click", ()=> {
+        deleteDataModal.close();
+    })
+
+
+    confirmDeleteButton.addEventListener("click" , () => {
+        console.log(dataIndex);
+        dataStorage.splice(dataIndex, 1);
+        localStorage.setItem("dataStorage", JSON.stringify(dataStorage));
+        deleteDataModal.close();
+        location.reload();
+    })
 }
 
 
@@ -132,31 +259,31 @@ submitAddButton.addEventListener("click", function () {
     restoreDefault();
     let isError = false;
 
-    if (yearInput.value === '') {
+    if (yearInput.value === '' || isNaN(yearInput.value)) {
         yearInputHelp.innerText = "Veuillez saisir une emplacement valide.";
         yearInputHelp.classList.remove("hidden");
         yearInput.style.border = "1px solid var(--red-color)";
         yearInput.style.outline = "4px solid var(--error-outline-red-color)";
         isError = true;
     }
-
-    if (turnoverInput.value === '') {
+    
+    if (turnoverInput.value === '' || isNaN(turnoverInput.value)) {
         turnoverInputHelp.innerText = "Veuillez saisir une emplacement valide.";
         turnoverInputHelp.classList.remove("hidden");
         turnoverInput.style.border = "1px solid var(--red-color)";
         turnoverInput.style.outline = "4px solid var(--error-outline-red-color)";
         isError = true;
     }
-
-    if (workforceInput.value === '') {
+    
+    if (workforceInput.value === '' || isNaN(workforceInput.value)) {
         workforceInputHelp.innerText = "Veuillez saisir une emplacement valide.";
         workforceInputHelp.classList.remove("hidden");
         workforceInput.style.border = "1px solid var(--red-color)";
         workforceInput.style.outline = "4px solid var(--error-outline-red-color)";
         isError = true;
     }
-
-    if (surfaceInput.value === '') {
+    
+    if (surfaceInput.value === '' || isNaN(surfaceInput.value)) {
         surfaceInputHelp.innerText = "Veuillez saisir une emplacement valide.";
         surfaceInputHelp.classList.remove("hidden");
         surfaceInput.style.border = "1px solid var(--red-color)";
@@ -169,15 +296,16 @@ submitAddButton.addEventListener("click", function () {
         const turnover = turnoverInput.value;
         const workforce = workforceInput.value;
         const surface = surfaceInput.value;
-
+    
         addData(year, turnover, workforce, surface);
-
+    
         yearInput.value = "";
         turnoverInput.value = "";
         workforceInput.value = "";
         surfaceInput.value = "";
-
+    
         addDataModal.close();
         window.location.href = "./store-page.html";
     }
+    
 });
