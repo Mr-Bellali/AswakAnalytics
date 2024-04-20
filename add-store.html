@@ -7,42 +7,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
   </head>
   <body>
     <nav class="navbar-container">
       <div class="navbar-elements">
-        <div class="navbar-left-elements">
-          <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Logo">
+        <div class="navbar-navigation-elements">
+          <img class="navbar-logo" src="./assets/img/aswakassalam-logo.png" alt="Aswak Assalam Logo">
           <div>
-            <ul class="navbar-links">
+            <ul class="navbar-navigation">
               <li><a href="./dashboard.html">Dashboard</a></li>
               <li><a href="./store-list.html">Liste des Magasins</a></li>
-              <li class="active-navbar-link">Ajouter un Magasin</li>
+              <li class="active-navigation-element">Ajouter un Magasin</li>
             </ul>
           </div>
         </div>
-        <button class="logout-button" id="logoutButton"><img src="assets/img/logout-icon.svg" alt="Logout Icon"></button>
+        <button class="logout-button" id="logoutButton"><img src="./assets/img/logout-icon.svg" alt="Logout Icon"></button>
       </div>
     </nav>
-    <main class="form-container">
-      <div class="form-content">
-        <h5 class="form-header">Ajouter une magasin</h5>
-        <p class="form-header-supporting-text margin-top-8">Saisissez les informations suivantes pour ajouter un magasin.</p>
-        <label class="margin-top-32" for="nameInput">Nom</label>
-        <input id="nameInput" type="text" placeholder="Aswak Assalam Sidi Maarouf" required>
+    <main class="main-container">
+      <form class="add-store-form-container margin-top-84">
+        <h1 class="add-store-header">Ajouter un Magasin</h1>
+        <p class="add-store-header-supporting-text margin-top-12">Saisissez les informations suivantes pour ajouter un magasin.</p>
+        <label class="add-store-form-input-label margin-top-84" for="nameInput">Nom</label>
+        <input class="add-store-form-input margin-top-6" id="nameInput" type="text" placeholder="Agdal" required>
         <p class="input-help margin-top-6 hidden" id="nameInputHelp"></p>
-        <label class="margin-top-16" for="locationInput">Emplacement</label>
-        <input id="locationInput" type="text" placeholder="Casablanca" required>
+        <label class="add-store-form-input-label margin-top-16" for="locationInput">Emplacement</label>
+        <input class="add-store-form-input margin-top-6" id="locationInput" type="text" placeholder="Rabat" required>
         <p class="input-help margin-top-6 hidden" id="locationInputHelp"></p>
-        <label class="margin-top-16" for="openingDateInput">Date d'ouverture</label>
-        <input id="openingDateInput" type="date" placeholder="2006" required>
+        <label class="add-store-form-input-label margin-top-16" for="openingDateInput">Date d'ouverture</label>
+        <input class="add-store-form-input margin-top-6" id="openingDateInput" placeholder="JJ/MM/AAAA" required>
         <p class="input-help margin-top-6 hidden" id="openingDateInputHelp"></p>
-        <div class="form-dual-action-buttons-container margin-top-32">
-          <button id="cancelButton">Annuler</button>
-          <button id="addButton">Soumettre</button>
-        </div>
-      </div>
+        <button class="add-store-form-button margin-top-32" id="addButton" type="submit">Soumettre</button>
+      </form>
     </main>
     <footer class="footer-container">
       <div class="footer-elements">
@@ -50,5 +47,6 @@
       </div>
     </footer>
   </body>
-  <script src="assets/js/add-store.js"></script>
+  <script src="./assets/js/add-store.js"></script>
+  <script src="./assets/js/date-input.js"></script>
 </html>

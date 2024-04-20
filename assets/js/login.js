@@ -79,7 +79,7 @@ loginButton.addEventListener("click", (event) => {
         } 
         
         else {
-          passwordInputHelp.innerText = "Mot de passe incorrect, essayez à nouveau.";
+          passwordInputHelp.innerText = "Mot de passe ou adresse email incorrect, essayez à nouveau.";
           passwordInputHelp.classList.remove("hidden");
           passwordInput.style.border = "1px solid var(--red-color)";
           passwordInput.style.outline = "4px solid var(--error-outline-red-color)";

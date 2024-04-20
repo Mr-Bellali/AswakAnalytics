@@ -12,96 +12,96 @@
   <body>
     <nav class="navbar-container">
       <div class="navbar-elements">
-        <div class="navbar-left-elements">
-          <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Logo">
+        <div class="navbar-navigation-elements">
+          <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Aswak Assalam Logo">
           <div>
-            <ul class="navbar-links">
+            <ul class="navbar-navigation">
               <li><a href="./dashboard.html">Dashboard</a></li>
               <li><a href="./store-list.html">Magasins</a></li>
               <li><a href="./add-store.html">Ajouter Magasin</a></li>
             </ul>
           </div>
         </div>
-        <button class="logout-button" id="logoutButton"><img src="assets/img/logout-icon.svg" alt="Log out Icon"></button>
+        <button class="logout-button" id="logoutButton"><img src="assets/img/logout-icon.svg" alt="Logout Icon"></button>
       </div>
     </nav>
     <main class="main-container">
-        <div class="store-dashboard-elements">
-          <h1 id="dashboard-heading"></h1>
-          <p class="margin-top-12">À <span id="heading-supporting-text"></span></p>
-          <button class="add-button margin-top-84" id="addDataButton"><img src="./assets/img/add-icon.svg">Ajouter des données</button>
-          <div class="table-container">
-            <table id="dashboard-table" class="dashboard-table margin-top-20">
-              <tr class="dashboard-table-header">
-                <th class="year-header">Année</th>
-                <th class="turnover-header">Chiffre d'affaire</th>
-                <th class="effective-header">Effectif</th>
-                <th class="surface-header">Surface</th>
-                <th class="actions-header"></th>
-              </tr>
-            </table>
-          </div>
-          <dialog class="modal-container" id="addDataModal">
-            <div class="form-content">
-              <h5 class="form-header">Ajouter des données</h5>
-              <p class="form-header-supporting-text margin-top-8">Saisissez les informations suivantes pour ajouter des données relatives à son magasin spécifique.</p>
-              <label class="margin-top-32" for="yearInput">Année</label>
-              <input id="yearInput" type="text" placeholder="Revalidation du token JWT expiré" required>
-              <p class="input-hint margin-top-6 hidden" id="yearInputHelp"></p>
-              <label class="margin-top-16" for="turnoverInput">Chiffre d'affaire</label>
-              <input id="turnoverInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="turnoverInputHelp"></p>
-              <label class="margin-top-16" for="workforceInput">Effectif</label>
-              <input id="workforceInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="workforceInputHelp"></p>
-              <label class="margin-top-16" for="surfaceInput">Surface</label>
-              <input id="surfaceInput" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="surfaceInputHelp"></p>
-              <div class="form-dual-action-buttons-container margin-top-32">
-                <button id="cancelAddButton">Annuler</button>
-                <button id="submitAddButton">Soumettre</button>
-              </div>
-            </div>
-          </dialog>
-          <dialog class="modal-container" id="editDataModal">
-            <div class="form-content">
-              <h5 class="form-header">Modifier les données</h5>
-              <p class="form-header-supporting-text margin-top-8">Modifiez les informations suivantes pour appliquer les changements souhaités aux données sélectionnées.</p>
-              <label class="margin-top-32" for="yearInput">Année</label>
-              <input id="yearInputModify" type="text" placeholder="Revalidation du token JWT expiré" required>
-              <p class="input-hint margin-top-6 hidden" id="yearInputModifyHelp"></p>
-              <label class="margin-top-16" for="turnoverInput">Chiffre d'affaire</label>
-              <input id="turnoverInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="turnoverInputModifyHelp"></p>
-              <label class="margin-top-16" for="workforceInput">Effectif</label>
-              <input id="workforceInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="workforceInputModifyHelp"></p>
-              <label class="margin-top-16" for="surfaceInput">Surface</label>
-              <input id="surfaceInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
-              <p class="input-hint margin-top-6 hidden" id="surfaceInputModifyHelp"></p>
-              <div class="form-dual-action-buttons-container margin-top-32">
-                <button id="cancelEditButton">Annuler</button>
-                <button id="applyEditButton">Appliquer</button>
-              </div>
-            </div>
-          </dialog>
-          <dialog class="modal-container" id="deleteDataModal">
-            <div class="form-content">
-              <h5 class="form-header">Supprimer la difficulté</h5>
-              <p class="form-header-supporting-text margin-top-8">Êtes-vous sûr de vouloir supprimer définitivement cette difficulté? Cette action est irréversible.</p>
-              <div class="form-dual-action-buttons-container margin-top-32">
-                <button id="cancelDeleteButton">Annuler</button>
-                <button id="confirmDeleteButton">Supprimer</button>
-              </div>
-            </div>
-          </dialog>
+      <div class="store-page-elements">
+        <h1 class="store-page-header" id="storeDashboardHeader"></h1>
+        <p class="store-page-header-supporting-text margin-top-12" id="storeDashboardHeaderSupportingText"></p>
+        <button class="store-page-add-button-button margin-top-84" id="addDataButton"><img src="./assets/img/add-icon.svg">Ajouter des données</button>
+        <div class="store-page-table-container">
+          <table id="dashboard-table" class="store-page-table margin-top-20">
+            <tr class="store-page-table-header">
+              <th class="year-header">Année</th>
+              <th class="turnover-header">Chiffre d'affaire</th>
+              <th class="effective-header">Effectif</th>
+              <th class="surface-header">Surface</th>
+              <th class="actions-header"></th>
+            </tr>
+          </table>
         </div>
+        <dialog class="modal-form-container" id="addDataModal">
+          <form class="modal-form">
+            <h5 class="modal-form-header">Ajouter des données</h5>
+            <p class="modal-form-header-supporting-text margin-top-8">Saisissez les informations suivantes pour ajouter des données relatives à son magasin spécifique.</p>
+            <label class="margin-top-32" for="yearInput">Année</label>
+            <input id="yearInput" type="text" placeholder="2012" required>
+            <p class="input-hint margin-top-6 hidden" id="yearInputHelp"></p>
+            <label class="margin-top-16" for="turnoverInput">Chiffre d'affaire</label>
+            <input id="turnoverInput" type="text" placeholder="4600000" required>
+            <p class="input-hint margin-top-6 hidden" id="turnoverInputHelp"></p>
+            <label class="margin-top-16" for="workforceInput">Effectif</label>
+            <input id="workforceInput" type="text" placeholder="142" required>
+            <p class="input-hint margin-top-6 hidden" id="workforceInputHelp"></p>
+            <label class="margin-top-16" for="surfaceInput">Surface</label>
+            <input id="surfaceInput" type="text" placeholder="532" required>
+            <p class="input-hint margin-top-6 hidden" id="surfaceInputHelp"></p>
+            <div class="modal-form-dual-action-buttons-container margin-top-32">
+              <button class="modal-form-dual-action-button modal-form-dual-secondary-action-button" id="cancelAddButton">Annuler</button>
+              <button class="modal-form-dual-action-button modal-form-dual-primary-action-button" id="submitAddButton" type="submit">Soumettre</button>
+            </div>
+          </form>
+        </dialog>
+        <dialog class="modal-form-container" id="editDataModal">
+          <div class="modal-form">
+            <h5 class="modal-form-header">Modifier les données</h5>
+            <p class="modal-form-header-supporting-text margin-top-8">Modifiez les informations suivantes pour appliquer les changements souhaités aux données sélectionnées.</p>
+            <label class="margin-top-32" for="yearInput">Année</label>
+            <input id="yearInputModify" type="text" placeholder="Revalidation du token JWT expiré" required>
+            <p class="input-hint margin-top-6 hidden" id="yearInputModifyHelp"></p>
+            <label class="margin-top-16" for="turnoverInput">Chiffre d'affaire</label>
+            <input id="turnoverInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+            <p class="input-hint margin-top-6 hidden" id="turnoverInputModifyHelp"></p>
+            <label class="margin-top-16" for="workforceInput">Effectif</label>
+            <input id="workforceInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+            <p class="input-hint margin-top-6 hidden" id="workforceInputModifyHelp"></p>
+            <label class="margin-top-16" for="surfaceInput">Surface</label>
+            <input id="surfaceInputModify" type="text" placeholder="Mise en œuvre de l'authentification JWT" required>
+            <p class="input-hint margin-top-6 hidden" id="surfaceInputModifyHelp"></p>
+            <div class="modal-form-dual-action-buttons-container margin-top-32">
+              <button class="modal-form-dual-action-button modal-form-dual-secondary-action-button" id="cancelEditButton">Annuler</button>
+              <button class="modal-form-dual-action-button modal-form-dual-primary-action-button" id="applyEditButton">Appliquer</button>
+            </div>
+          </div>
+        </dialog>
+        <dialog class="modal-form-container" id="deleteDataModal">
+          <div class="modal-form">
+            <h5 class="modal-form-header">Supprimer les données</h5>
+            <p class="modal-form-header-supporting-text margin-top-8">Êtes-vous sûr de vouloir supprimer définitivement cette entrée de données? Cette action est irréversible.</p>
+            <div class="modal-form-dual-action-buttons-container margin-top-32">
+              <button class="modal-form-dual-action-button modal-form-dual-secondary-action-button" id="cancelDeleteButton">Annuler</button>
+              <button class="modal-form-dual-action-button modal-form-dual-primary-caution-action-button" id="confirmDeleteButton">Supprimer</button>
+            </div>
+          </div>
+        </dialog>
+      </div>
     </main>
     <footer class="footer-container">
       <div class="footer-elements">
         <p>COPYRIGHT © 2024 ASWAK ASSALAM — TOUS DROITS RÉSERVÉS.</p>
       </div>
     </footer>
-</body>
-<script src="./assets/js/store-page.js"></script>
+  </body>
+  <script src="./assets/js/store-page.js"></script>
 </html>

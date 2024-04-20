@@ -7,14 +7,14 @@
   --light-blue-color: #E5EBF3;
   --white-color: #FFFFFF;
   --dark-gray-color: #3C3C3C;
-  --light-gray-color: #D4D4D4;
+  --light-gray-color: #D6D6D6;
   --super-light-gray-color: #FAFAFA;
   --ultra-light-gray-color: #EBEBEB;
   --super-ultra-gray-color: #F9F9F9;
 }
 
 * {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   box-sizing: border-box;
 }
 
@@ -69,70 +69,12 @@ body, h1, h5, p, textarea {
   margin-top: 32px;
 }
 
+.margin-top-42 {
+  margin-top: 42px;
+}
+
 .margin-top-84 {
   margin-top: 84px;
-}
-
-/* 
-  #################################
-  Login CSS
-  #################################
-*/
-
-.auth-container, .form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-}
-
-.form-container {
-  margin-top: 84px;
-  margin-bottom: 84px;
-}
-
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  width: 360px;
-  padding: 24px;
-  border: 1px var(--light-gray-color) solid;
-  border-radius: 8px;
-}
-
-.auth-form-header, .auth-form-header-supporting-text, .auth-form img {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.auth-form-header, .dashboard-elements h1, .main-heading, .store-dashboard-elements h1 {
-  font-size: 1.875rem;
-  font-weight: 800;
-}
-
-.auth-form-header-supporting-text, .dashboard-elements p, .footer-elements, .store-dashboard-elements p {
-  color: var(--gray-color);
-}
-
-.auth-form-input-label {
-  color: var(--gray-color);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.auth-form-input {
-  margin-top: 6px;
-  padding: 10px 16px;
-  border: 1px solid var(--light-gray-color);
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.input-help {
-  margin-right: auto;
-  font-size: 0.875rem;
-  color: var(--red-color);
 }
 
 .hidden {
@@ -148,18 +90,85 @@ body, h1, h5, p, textarea {
   color: var(--light-gray-color);
 }
 
-.auth-form button {
-  width: 100%;
-  border: none;
-  padding: 10px 0;
-  font-size: 1rem;
-  border-radius: 8px;
-  color: var(--blue-color);
-  background-color: var(--light-blue-color);
-  font-weight: 600;
+/* 
+  #################################
+  Login CSS
+  #################################
+*/
+
+.login-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.auth-form button:hover {
+.login-form {
+  width: 408px;
+  border-radius: 8px;
+  border: 1px solid var(--light-gray-color);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form img {
+  width: 172px;
+  height: 49px;
+}
+
+.login-form-header, .add-store-header, .store-list-header, .store-page-header {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 38px;
+}
+
+.login-form-header-supporting-text, .add-store-header-supporting-text, .store-page-header-supporting-text {
+  color: var(--gray-color);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.login-form img, .login-form-header, .login-form-header-supporting-text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-form-input-label, .input-help, .add-store-form-input-label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.login-form-input-label, .add-store-form-input-label {
+  color: var(--gray-color);
+}
+
+.input-help {
+  color: var(--red-color);
+}
+
+.login-form-input, .add-store-form-input {
+  border-radius: 8px;
+  border: 1px solid var(--light-gray-color);
+  padding: 10px 14px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.login-form-button, .add-store-form-button {
+  border: none;
+  border-radius: 8px;
+  background: var(--light-blue-color);
+  padding: 10px 18px;
+  color: var(--blue-color);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.login-form-button:hover, .add-store-form-button:hover {
   cursor: pointer;
 }
 
@@ -182,9 +191,10 @@ body, h1, h5, p, textarea {
   align-items: center;
   margin: 11px auto;
   width: 1216px;
+  max-width: 100%;
 }
 
-.navbar-left-elements {
+.navbar-navigation-elements {
   display: flex;
   align-items: center;
 }
@@ -194,23 +204,23 @@ body, h1, h5, p, textarea {
   margin-right: 32px;
 }
 
-.navbar-links, .dashboard-nav-links {
+.navbar-navigation, .dashboard-nav-links {
   display: flex;
   list-style: none;
   padding-left: 0;
   margin: 0;
 }
 
-.navbar-links li:nth-of-type(1), .dashboard-nav-links li:nth-of-type(1), .navbar-links li:nth-of-type(2), .dashboard-nav-links li:nth-of-type(2) {
+.navbar-navigation li:nth-of-type(1), .navbar-navigation li:nth-of-type(2), .dashboard-nav-links li:nth-of-type(1), .dashboard-nav-links li:nth-of-type(2) {
   margin-right: 32px;
 }
 
-.navbar-links a {
+.navbar-navigation a {
   text-decoration: none;
   color: var(--black-color);
 }
 
-.active-navbar-link, .active-dashboard-nav-element {
+.active-navigation-element, .active-dashboard-nav-element {
   color: var(--blue-color);
   font-weight: 800;
 }
@@ -233,159 +243,33 @@ body, h1, h5, p, textarea {
 
 /* 
   #################################
-  Main CSS
+  Main Containers CSS
   #################################
 */
 
 .main-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
   width: 1216px;
   max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin: 84px auto;
-  flex: 1;
 }
 
-.form-content {
+.add-store-form-container {
   display: flex;
   flex-direction: column;
-  padding: 24px;
-  background-color: var(--white-color);
-  border: 1px solid var(--light-gray-color);
-  width: 400px;
-  border-radius: 12px;
+  width: 352px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.form-header {
-  font-size: 1.125rem;
-  line-height: 28px;
-  font-weight: 800;
-}
-
-.form-header-supporting-text {
-  font-size: 0.875rem;
-  color: var(--gray-color);
-  line-height: 20px;
-}
-
-.form-content label {
-  color: var(--gray-color);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 20px;
-}
-
-.form-content input {
-  margin-top: 6px;
-  padding: 10px 16px;
-  border: 1px solid var(--light-gray-color);
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.form-dual-action-buttons-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.form-dual-action-buttons-container button {
-  font-size: 1rem;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-.form-dual-action-buttons-container button {
-  width: 100%;
-  padding: 10px 0;
-}
-
-.form-dual-action-buttons-container button:hover {
-  cursor: pointer;
-}
-
-.form-dual-action-buttons-container button:nth-of-type(1) {
-  border: 1px solid var(--light-gray-color);
-  background-color: var(--white-color);
-  color: var(--black-color);
-  margin-right: 12px;
-}
-
-#deleteDataModal .form-dual-action-buttons-container button:nth-of-type(2) {
-  color: var(--white-color);
-  background-color: var(--red-color);
-}
-
-.form-dual-action-buttons-container button:nth-of-type(2) {
-  color: var(--blue-color);
-  background-color: var(--light-blue-color);
-  border: none;
-  padding: 11px 0;
-}
-
-.add-button {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  color: var(--blue-color);
-  background-color: var(--light-blue-color);
-  font-weight: 600;
-}
-
-.add-button:hover {
-  cursor: pointer;
-  background-color: #004db3;
-}
-
-.add-button img {
-  margin-right: 8px;
-}
-
-.table-container {
-  overflow: auto;
-}
-
-.dashboard-table {
-  border: 1px solid var(--light-gray-color);
-  border-radius: 12px;
-  border-spacing: 0;
-  overflow: hidden;
-  width: 1216px;
-}
-
-.dashboard-table-header {
-  background-color: var(--super-light-gray-color);
-  height: auto;
-}
-
-.dashboard-table-header th, .dashboard-table tr td {
-  border-bottom: 1px solid var(--ultra-light-gray-color);
-}
-
-.dashboard-table tr:last-child td {
-  border-bottom: none;
-}
-
-.dashboard-table th {
-  text-align: left;
-  padding: 11px 0 11px 24px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--dark-gray-color);
-}
-
-.dashboard-table td {
-  padding: 24px 0 24px 24px;
-  font-size: 14px;
-}
-
-.year-header, .turnover-header, .effective-header, .surface-header {
-  width: 259px;
-}
+/* 
+  #################################
+  Footer CSS
+  #################################
+*/
 
 .footer-container {
   width: 100%;
@@ -401,35 +285,9 @@ body, h1, h5, p, textarea {
 
 .footer-elements p {
   font-size: 0.875rem;
+  color: var(--gray-color);
 }
 
-.modify-button {
-  background-color: transparent;
-  color: var(--dark-gray-color);
-  border: none;
-  padding: 0;
-  margin-right: 12px;
-  font-weight: 600;
-}
-
-.delete-button {
-  background-color: transparent;
-  color: var(--red-color);
-  border: none;
-  padding: 0;
-  font-weight: 600;
-}
-
-.modal-container {
-  background: none;
-  border: none;
-  padding: 0;
-}
-
-dialog::backdrop {
-  background-color: var(--black-color);
-  opacity: 0.7;
-}
 
 .custom-dropdown {
   position: relative;
@@ -478,33 +336,44 @@ dialog::backdrop {
   background-color: var(--super-ultra-gray-color);
 }
 
-.sorting-elements {
+/* 
+  #################################
+  Store List CSS
+  #################################
+*/
+
+.store-list-sorting-elements {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.orientation-buttons {
+.orientation-buttons-container {
   display: flex;
   flex-direction: row;
 }
 
-.orientation-buttons button {
+.orientation-buttons-container button {
   border: none;
-  border-radius: 8px;
+  border-radius: 22px;
   height: 44px;
   width: 44px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--light-blue-color);
+}
+
+.orientation-buttons-container button img {
+  width: 18px;
 }
 
 .selected-orientation-button {
-  background-color: var(--blue-color);
+  background-color: var(--blue-color) !important;
 }
 
-.orientation-buttons button:nth-of-type(1) {
+.orientation-buttons-container button:nth-of-type(1) {
   margin-right: 12px;
 }
 
@@ -515,6 +384,41 @@ dialog::backdrop {
   grid-column-gap: 32px;
 }
 
+.vertical-card-container {
+  width: 280px;
+  height: 252px;
+  border-radius: 8px;
+  border: 1px solid var(--light-gray-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.vertical-card-container:hover, .horizontal-card-container:hover, .orientation-buttons-container button, .modify-button:hover, .delete-button:hover {
+  cursor: pointer;
+}
+
+.vertical-card-image {
+  height: 168px;
+}
+
+.vertical-card-info-container {
+  margin: 12px 0 0 12px;
+}
+
+.vertical-card-info-container p:nth-of-type(1), .horizontal-card-info-container p:nth-of-type(1) {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.vertical-card-info-container p:nth-of-type(2), .horizontal-card-info-container p:nth-of-type(2) {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--gray-color);
+}
+
 .horizontal-cards-list-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -522,74 +426,203 @@ dialog::backdrop {
   grid-column-gap: 32px;
 }
 
-.vertical-card-container {
-  width: 280px;
-  height: 235px;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid var(--light-gray-color);
-  display: flex;
-  flex-direction: column;
-}
-
 .horizontal-card-container {
   width: 384px;
   height: 128px;
-  padding: 12px;
   border-radius: 8px;
   border: 1px solid var(--light-gray-color);
   display: flex;
+  flex-direction: row;
+  overflow: hidden;
 }
 
-.vertical-card-image-container {
-  height: 148px;
-  width: 100%;
-  background-color: var(--light-gray-color);
-  border-radius: 4px;
-}
-
-.horizontal-card-image-container {
-  height: 100%;
-  width: 196px;
-  background-color: var(--light-gray-color);
-  border-radius: 4px;
-}
-
-.vertical-card-info-container {
-  margin-top: 12px;
-}
-
-.vertical-card-info-container p:nth-of-type(1) {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 28px;
-}
-
-.vertical-card-info-container p:nth-of-type(2) {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-  color: var(--gray-color);
+.horizontal-card-image {
+  width: 192px;
 }
 
 .horizontal-card-info-container {
   display: flex;
   flex-direction: column;
-  margin-left: 12px;
+  margin: 12px 0 0 12px;
 }
 
-.horizontal-card-info-container p:nth-of-type(1) {
-  font-size: 18px;
+/* 
+  #################################
+  Store Page CSS
+  #################################
+*/
+
+.store-page-add-button-button {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  color: var(--blue-color);
+  background-color: var(--light-blue-color);
   font-weight: 600;
-  line-height: 28px;
 }
 
-.horizontal-card-info-container p:nth-of-type(2) {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-  color: var(--gray-color);
+.store-page-add-button-button:hover {
+  cursor: pointer;
 }
+
+.store-page-add-button-button img {
+  margin-right: 8px;
+}
+
+.store-page-table {
+  border: 1px solid var(--light-gray-color);
+  border-radius: 12px;
+  border-spacing: 0;
+  overflow: hidden;
+  width: 1216px;
+}
+
+.store-page-table-header {
+  background-color: var(--super-light-gray-color);
+  height: auto;
+}
+
+.store-page-table-header th, .store-page-table tr td {
+  border-bottom: 1px solid var(--ultra-light-gray-color);
+}
+
+.store-page-table tr:last-child td {
+  border-bottom: none;
+}
+
+.store-page-table th {
+  text-align: left;
+  padding: 11px 0 11px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark-gray-color);
+}
+
+.store-page-table td {
+  padding: 24px 0 24px 24px;
+  font-size: 14px;
+}
+
+.year-header, .turnover-header, .effective-header, .surface-header {
+  width: 259px;
+}
+
+.modify-button, .delete-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-weight: 600;
+}
+
+.modify-button {
+  color: var(--dark-gray-color);
+  margin-right: 12px;
+}
+
+.delete-button {
+  color: var(--blue-color);
+}
+
+/* 
+  #################################
+  Store Page — Modal CSS
+  #################################
+*/
+
+.modal-form-container {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+dialog::backdrop {
+  background-color: var(--black-color);
+  opacity: 0.7;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background-color: var(--white-color);
+  border: 1px solid var(--light-gray-color);
+  width: 400px;
+  border-radius: 12px;
+}
+
+.modal-form-header {
+  font-size: 1.125rem;
+  line-height: 28px;
+  font-weight: 800;
+}
+
+.modal-form-header-supporting-text {
+  font-size: 0.875rem;
+  color: var(--gray-color);
+  line-height: 20px;
+}
+
+.modal-form label {
+  color: var(--gray-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.modal-form input {
+  margin-top: 6px;
+  padding: 10px 16px;
+  border: 1px solid var(--light-gray-color);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal-form-dual-action-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-form-dual-action-button {
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.modal-form-dual-action-button:hover {
+  cursor: pointer;
+}
+
+.modal-form-dual-secondary-action-button {
+  border: 1px solid var(--light-gray-color);
+  background-color: var(--white-color);
+  color: var(--black-color);
+  margin-right: 12px;
+}
+
+.modal-form-dual-primary-caution-action-button {
+  color: var(--white-color);
+  background-color: var(--red-color);
+  border: none;
+}
+
+.modal-form-dual-primary-action-button {
+  color: var(--blue-color);
+  background-color: var(--light-blue-color);
+  border: none;
+  padding: 11px 0;
+}
+
+/* 
+  #################################
+  Dashboard CSS
+  #################################
+*/
 
 .dashboard-nav-elements {
   display: flex;

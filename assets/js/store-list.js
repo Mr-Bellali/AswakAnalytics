@@ -1,14 +1,32 @@
-//filling store location dropdown menu
-let storeLocations = [];
+//
+//
+// general variables declaration
+//
+//
+const horizontalLayoutButton = document.getElementById("horizontalLayoutButton");
+const verticalLayoutButton = document.getElementById("verticalLayoutButton");
+const horizontalLayoutButtonIcon = document.getElementById("horizontalLayoutButtonIcon");
+const verticalLayoutButtonIcon = document.getElementById("verticalLayoutButtonIcon");
+
+const storeLocationSelect = document.querySelector(".dropdown-options");
+const dropdownOptions = document.querySelector(".dropdown-options");
+
+const sortingElements = document.querySelector(".store-list-sorting-elements");
+
+//
+//
+// generate store locations and inject them in dropdown menu
+//
+//
+
+let storeLocations;
 
 if (localStorage.getItem("storeStorage")) {
   const storeStorage = JSON.parse(localStorage.getItem("storeStorage"));
   storeLocations = storeStorage.map((store) => store.storeLocation);
-  // Remove duplicates
+
   storeLocations = Array.from(new Set(storeLocations));
 }
-
-const storeLocationSelect = document.querySelector(".dropdown-options");
 
 storeLocations.forEach((storeLocation) => {
   const div = document.createElement("div");
@@ -16,43 +34,25 @@ storeLocations.forEach((storeLocation) => {
   storeLocationSelect.appendChild(div);
 });
 
-//filter
-const dropdownOptions = document.querySelector(".dropdown-options");
+//
+//
+// render vertical cards on load
+//
+//
 
-dropdownOptions.addEventListener("click", (e) => {
-  const selectedOption = e.target.textContent.trim();
-  let dropdownValue = selectedOption;
+window.onload = () => {
+  horizontalLayoutButton.classList.remove("selected-orientation-button");
+  verticalLayoutButton.classList.add("selected-orientation-button");
+  verticalLayoutButtonIcon.src = "./assets/img/white-vertical-sort-icon.svg";
+  horizontalLayoutButtonIcon.src = "./assets/img/blue-horizontal-sort-icon.svg";
 
-  const stores = JSON.parse(localStorage.getItem("storeStorage")) || [];
+  let storeData = JSON.parse(localStorage.getItem("storeStorage"));
+  let verticalLayout = `<div class="vertical-cards-list-container margin-top-42">`;
 
-  let filteredStores;
-
-  if (dropdownValue === "Tous") {
-    filteredStores = stores;
-  } else {
-    filteredStores = stores.filter(
-      (store) => store.storeLocation === dropdownValue
-    );
-  }
-
-  console.log(filteredStores);
-
-  const verticalLayouts = document.querySelectorAll(
-    ".vertical-cards-list-container"
-  );
-  verticalLayouts.forEach((layout) => layout.remove());
-  const horizontalLayouts = document.querySelectorAll(
-    ".horizontal-cards-list-container"
-  );
-  horizontalLayouts.forEach((layout) => layout.remove());
-
-  let verticalLayout = `<div class="vertical-cards-list-container margin-top-20">`;
-  filteredStores.forEach((store, index) => {
+  storeData.forEach((store) => {
     verticalLayout += `
-    <div class="vertical-card-container" data-index="${index}">
-      <div class="vertical-card-image-container">
-
-      </div>
+    <div class="vertical-card-container" data-store-id="${store.storeId}">
+      <img class="vertical-card-image" src="./assets/img/vertical-card-image.png" alt="Aswak Assalam Logo Image">
       <div class="vertical-card-info-container">
         <p>${store.storeName}</p>
         <p>${store.storeLocation}</p>
@@ -60,153 +60,263 @@ dropdownOptions.addEventListener("click", (e) => {
     </div>
     `;
   });
+
   verticalLayout += `</div>`;
   sortingElements.insertAdjacentHTML("afterend", verticalLayout);
-});
+};
 
-//rendering cards
-window.onload = () => {
-  const verticalLayouts = document.querySelectorAll(
-    ".vertical-cards-list-container"
-  );
-  verticalLayouts.forEach((layout) => layout.remove());
-  const horizontalLayouts = document.querySelectorAll(
-    ".horizontal-cards-list-container"
-  );
-  horizontalLayouts.forEach((layout) => layout.remove());
+//
+//
+// render cards on dropdown menu option change
+//
+//
 
-  horizontalLayoutButton.classList.remove("selected-orientation-button");
-  verticalLayoutButton.classList.add("selected-orientation-button");
-  verticalLayoutButtonIcon.src = "./assets/img/white-vertical-sort-icon.svg";
-  horizontalLayoutButtonIcon.src = "./assets/img/blue-horizontal-sort-icon.svg";
+dropdownOptions.addEventListener("click", (e) => {
+  let selectedDropdownOption = e.target.textContent.trim();
+  const stores = JSON.parse(localStorage.getItem("storeStorage")) || [];
+  let filteredStores;
 
-  let storeData = JSON.parse(localStorage.getItem("storeStorage"));
-  let verticalLayout = `<div class="vertical-cards-list-container margin-top-20">`;
-
-  storeData.forEach((store, index) => {
-    verticalLayout += `
-        <div class="vertical-card-container" data-index="${index}">
-          <div class="vertical-card-image-container">
-
-          </div>
+  if (selectedDropdownOption === "Tous") {
+    if (document.querySelector(".vertical-cards-list-container")) {
+      document.querySelector(".vertical-cards-list-container").remove();
+    }
+      
+    if (document.querySelector(".horizontal-cards-list-container")) {
+      document.querySelector(".horizontal-cards-list-container").remove();
+    }
+      
+    if (document.getElementById("verticalLayoutButton").classList.contains("selected-orientation-button")) {
+      let cardsLayout = `<div class="vertical-cards-list-container margin-top-42">`;
+      stores.forEach((store) => {
+        cardsLayout += `
+        <div class="vertical-card-container" data-store-id="${store.storeId}">
+          <img class="vertical-card-image" src="./assets/img/vertical-card-image.png" alt="Aswak Assalam Logo Image">
           <div class="vertical-card-info-container">
             <p>${store.storeName}</p>
             <p>${store.storeLocation}</p>
           </div>
         </div>
         `;
-  });
+      });
+      cardsLayout += `</div>`;
+      sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+    }
 
-  verticalLayout += `</div>`;
-
-  sortingElements.insertAdjacentHTML("afterend", verticalLayout);
-};
-
-const horizontalLayoutButton = document.getElementById(
-  "horizontalLayoutButton"
-);
-const verticalLayoutButton = document.getElementById("verticalLayoutButton");
-const horizontalLayoutButtonIcon = document.getElementById(
-  "horizontalLayoutButtonIcon"
-);
-const verticalLayoutButtonIcon = document.getElementById(
-  "verticalLayoutButtonIcon"
-);
-
-const sortingElements = document.querySelector(".sorting-elements");
-
-horizontalLayoutButton.addEventListener("click", () => {
-  const horizontalLayouts = document.querySelectorAll(
-    ".horizontal-cards-list-container"
-  );
-  horizontalLayouts.forEach((layout) => layout.remove());
-  const verticalLayouts = document.querySelectorAll(
-    ".vertical-cards-list-container"
-  );
-  verticalLayouts.forEach((layout) => layout.remove());
-
-  verticalLayoutButton.classList.remove("selected-orientation-button");
-  horizontalLayoutButton.classList.add("selected-orientation-button");
-  verticalLayoutButtonIcon.src = "./assets/img/blue-vertical-sort-icon.svg";
-  horizontalLayoutButtonIcon.src =
-    "./assets/img/white-horizontal-sort-icon.svg";
-
-  let storeData = JSON.parse(localStorage.getItem("storeStorage"));
-  let horizontalLayout = `<div class="horizontal-cards-list-container margin-top-20">`;
-
-  storeData.forEach((store, index) => {
-    horizontalLayout += `
-        <div class="horizontal-card-container" data-index="${index}">
-          <div class="horizontal-card-image-container">
-
-          </div>
+    if (document.getElementById("horizontalLayoutButton").classList.contains("selected-orientation-button")) {
+      let cardsLayout = `<div class="horizontal-cards-list-container margin-top-42">`;
+      stores.forEach((store) => {
+        cardsLayout += `
+        <div class="horizontal-card-container" data-store-id="${store.storeId}">
+          <img class="horizontal-card-image" src="./assets/img/horizontal-card-image.png" alt="Aswak Assalam Logo Image">
           <div class="horizontal-card-info-container">
             <p>${store.storeName}</p>
             <p>${store.storeLocation}</p>
           </div>
         </div>
         `;
-  });
+      });
+      cardsLayout += `</div>`;
+      sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+    }
+  }
+  
+  else {
+    filteredStores = stores.filter((store) => store.storeLocation === selectedDropdownOption);
 
-  horizontalLayout += `</div>`;
-
-  sortingElements.insertAdjacentHTML("afterend", horizontalLayout);
-});
-
-verticalLayoutButton.addEventListener("click", () => {
-  const verticalLayouts = document.querySelectorAll(
-    ".vertical-cards-list-container"
-  );
-  verticalLayouts.forEach((layout) => layout.remove());
-  const horizontalLayouts = document.querySelectorAll(
-    ".horizontal-cards-list-container"
-  );
-  horizontalLayouts.forEach((layout) => layout.remove());
-
-  horizontalLayoutButton.classList.remove("selected-orientation-button");
-  verticalLayoutButton.classList.add("selected-orientation-button");
-  verticalLayoutButtonIcon.src = "./assets/img/white-vertical-sort-icon.svg";
-  horizontalLayoutButtonIcon.src = "./assets/img/blue-horizontal-sort-icon.svg";
-
-  let storeData = JSON.parse(localStorage.getItem("storeStorage"));
-  let horizontalLayout = `<div class="vertical-cards-list-container margin-top-20">`;
-
-  storeData.forEach((store, index) => {
-    horizontalLayout += `
-        <div class="vertical-card-container" data-index="${index}">
-          <div class="vertical-card-image-container">
-
-          </div>
+    if (document.querySelector(".vertical-cards-list-container")) {
+      document.querySelector(".vertical-cards-list-container").remove();
+    }
+      
+    if (document.querySelector(".horizontal-cards-list-container")) {
+      document.querySelector(".horizontal-cards-list-container").remove();
+    }
+      
+    if (document.getElementById("verticalLayoutButton").classList.contains("selected-orientation-button")) {
+      let cardsLayout = `<div class="vertical-cards-list-container margin-top-42">`;
+      filteredStores.forEach((store) => {
+        cardsLayout += `
+        <div class="vertical-card-container" data-store-id="${store.storeId}">
+          <img class="vertical-card-image" src="./assets/img/vertical-card-image.png" alt="Aswak Assalam Logo Image">
           <div class="vertical-card-info-container">
             <p>${store.storeName}</p>
             <p>${store.storeLocation}</p>
           </div>
         </div>
         `;
-  });
+      });
+      cardsLayout += `</div>`;
+      sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+    }
 
-  horizontalLayout += `</div>`;
+    if (document.getElementById("horizontalLayoutButton").classList.contains("selected-orientation-button")) {
+      let cardsLayout = `<div class="horizontal-cards-list-container margin-top-42">`;
+      filteredStores.forEach((store) => {
+        cardsLayout += `
+        <div class="horizontal-card-container" data-store-id="${store.storeId}">
+          <img class="horizontal-card-image" src="./assets/img/horizontal-card-image.png" alt="Aswak Assalam Logo Image">
+          <div class="horizontal-card-info-container">
+            <p>${store.storeName}</p>
+            <p>${store.storeLocation}</p>
+          </div>
+        </div>
+        `;
+      });
+      cardsLayout += `</div>`;
+      sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+    }
+  }
+});
 
-  sortingElements.insertAdjacentHTML("afterend", horizontalLayout);
+horizontalLayoutButton.addEventListener("click", () => {
+  let selectedDropdownOption = document.getElementById("locationSelect").textContent.trim();
+  const stores = JSON.parse(localStorage.getItem("storeStorage")) || [];
+  let filteredStores;
+
+  horizontalLayoutButton.classList.add("selected-orientation-button");
+  verticalLayoutButton.classList.remove("selected-orientation-button");
+  verticalLayoutButtonIcon.src = "./assets/img/blue-vertical-sort-icon.svg";
+  horizontalLayoutButtonIcon.src = "./assets/img/white-horizontal-sort-icon.svg";
+
+  if (selectedDropdownOption === "Tous" || selectedDropdownOption === "Emplacement") {
+    if (document.querySelector(".vertical-cards-list-container")) {
+      document.querySelector(".vertical-cards-list-container").remove();
+    }
+      
+    if (document.querySelector(".horizontal-cards-list-container")) {
+      document.querySelector(".horizontal-cards-list-container").remove();
+    }
+      
+    let cardsLayout = `<div class="horizontal-cards-list-container margin-top-42">`;
+    stores.forEach((store) => {
+      cardsLayout += `
+      <div class="horizontal-card-container" data-store-id="${store.storeId}">
+        <img class="horizontal-card-image" src="./assets/img/horizontal-card-image.png" alt="Aswak Assalam Logo Image">
+        <div class="horizontal-card-info-container">
+          <p>${store.storeName}</p>
+          <p>${store.storeLocation}</p>
+        </div>
+      </div>
+      `;
+    });
+    cardsLayout += `</div>`;
+    sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+  }
+
+  else {
+    if (document.querySelector(".vertical-cards-list-container")) {
+      document.querySelector(".vertical-cards-list-container").remove();
+    }
+      
+    if (document.querySelector(".horizontal-cards-list-container")) {
+      document.querySelector(".horizontal-cards-list-container").remove();
+    }
+
+    filteredStores = stores.filter((store) => store.storeLocation === selectedDropdownOption);
+    let cardsLayout = `<div class="horizontal-cards-list-container margin-top-42">`;
+    filteredStores.forEach((store) => {
+      cardsLayout += `
+      <div class="horizontal-card-container" data-store-id="${store.storeId}">
+        <img class="horizontal-card-image" src="./assets/img/horizontal-card-image.png" alt="Aswak Assalam Logo Image">
+        <div class="horizontal-card-info-container">
+          <p>${store.storeName}</p>
+          <p>${store.storeLocation}</p>
+        </div>
+      </div>
+      `;
+    });
+    cardsLayout += `</div>`;
+    sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+  }
+});
+
+verticalLayoutButton.addEventListener("click", () => {
+  let selectedDropdownOption = document.getElementById("locationSelect").textContent.trim();
+  const stores = JSON.parse(localStorage.getItem("storeStorage")) || [];
+  let filteredStores;
+
+  horizontalLayoutButton.classList.remove("selected-orientation-button");
+  verticalLayoutButton.classList.add("selected-orientation-button");
+  verticalLayoutButtonIcon.src = "./assets/img/white-vertical-sort-icon.svg";
+  horizontalLayoutButtonIcon.src = "./assets/img/blue-horizontal-sort-icon.svg";
+
+  if (selectedDropdownOption === "Tous" || selectedDropdownOption === "Emplacement") {
+    if (document.querySelector(".vertical-cards-list-container")) {
+      document.querySelector(".vertical-cards-list-container").remove();
+    }
+      
+    if (document.querySelector(".horizontal-cards-list-container")) {
+      document.querySelector(".horizontal-cards-list-container").remove();
+    }
+      
+    let cardsLayout = `<div class="vertical-cards-list-container margin-top-42">`;
+    stores.forEach((store) => {
+      cardsLayout += `
+      <div class="vertical-card-container" data-store-id="${store.storeId}">
+        <img class="vertical-card-image" src="./assets/img/vertical-card-image.png" alt="Aswak Assalam Logo Image">
+        <div class="vertical-card-info-container">
+          <p>${store.storeName}</p>
+          <p>${store.storeLocation}</p>
+        </div>
+      </div>
+      `;
+    });
+    cardsLayout += `</div>`;
+    sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+  }
+
+  else {
+    if (document.querySelector(".vertical-cards-list-container")) {
+      document.querySelector(".vertical-cards-list-container").remove();
+    }
+      
+    if (document.querySelector(".horizontal-cards-list-container")) {
+      document.querySelector(".horizontal-cards-list-container").remove();
+    }
+
+    filteredStores = stores.filter((store) => store.storeLocation === selectedDropdownOption);
+    let cardsLayout = `<div class="vertical-cards-list-container margin-top-42">`;
+    filteredStores.forEach((store) => {
+      cardsLayout += `
+      <div class="vertical-card-container" data-store-id="${store.storeId}">
+        <img class="vertical-card-image" src="./assets/img/vertical-card-image.png" alt="Aswak Assalam Logo Image">
+        <div class="vertical-card-info-container">
+          <p>${store.storeName}</p>
+          <p>${store.storeLocation}</p>
+        </div>
+      </div>
+      `;
+    });
+    cardsLayout += `</div>`;
+    sortingElements.insertAdjacentHTML("afterend", cardsLayout);
+  }
 });
 
 // Define store variable
 let store = null;
 
-// evenlistener for card clicks
 document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("vertical-card-container") || e.target.classList.contains("horizontal-card-container")) {
-    const dataIndex = e.target.dataset.index;
-    console.log("Index of clicked card:", dataIndex);
-    // Do whatever you want with the index here
+  let targetElement = e.target; // Clicked element
+  let cardContainer = null;
+ 
+  // Traverse up the DOM tree to find the card container
+  while (targetElement) {
+      if (targetElement.classList.contains("vertical-card-container") || targetElement.classList.contains("horizontal-card-container")) {
+        cardContainer = targetElement;
+        break;
+      }
+      targetElement = targetElement.parentElement;
+  }
+ 
+  // If a card container was found, proceed with your logic
+  if (cardContainer) {
+    const storeId = cardContainer.dataset.storeId;
+    console.log("Store ID:", storeId);
     let stores = JSON.parse(localStorage.getItem("storeStorage"));
 
-    let store = null;
-    let temporaryStoreId = null;
     for (let i = 0; i < stores.length; i++) {
-      if (stores[i].storeId == dataIndex) {
-        store = stores[i];
-        temporaryStoreId = stores[i].storeId;
+      if (stores[i].storeId == storeId) {
+        temporaryStoreId = i;
+        console.log("Index:", temporaryStoreId);
         break;
       }
     }
@@ -214,9 +324,11 @@ document.addEventListener("click", (e) => {
     try {
       localStorage.setItem("temporaryStoreId", temporaryStoreId);
       console.log("temporaryStoreId set to:", temporaryStoreId);
-    } catch (error) {
+      window.location.href = "store-page.html";
+    }
+    
+    catch (error) {
       console.error("Error setting temporaryStoreId:", error);
     }
-    window.location.href = "store-page.html";
   }
 });

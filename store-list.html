@@ -12,12 +12,12 @@
   <body>
     <nav class="navbar-container">
       <div class="navbar-elements">
-        <div class="navbar-left-elements">
-          <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Logo">
+        <div class="navbar-navigation-elements">
+          <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Aswak Assalam Logo">
           <div>
-            <ul class="navbar-links">
+            <ul class="navbar-navigation">
               <li><a href="./dashboard.html">Dashboard</a></li>
-              <li class="active-navbar-link">Liste des Magasins</li>
+              <li class="active-navigation-element">Liste des Magasins</li>
               <li><a href="./add-store.html">Ajouter un Magasin</a></li>
             </ul>
           </div>
@@ -26,8 +26,8 @@
       </div>
     </nav>
     <main class="main-container">
-      <h1 class="main-heading">Liste des Magasins</h1>
-      <div class="sorting-elements margin-top-84">
+      <h1 class="store-list-header">Liste des Magasins</h1>
+      <div class="store-list-sorting-elements margin-top-42">
         <div class="custom-dropdown">
           <div class="selected-option" id="locationSelect">
             Emplacement
@@ -37,9 +37,9 @@
             <div>Tous</div>
           </div>
         </div>
-        <div class="orientation-buttons">
-          <button class="" id="horizontalLayoutButton"><img id="horizontalLayoutButtonIcon" src="./assets/img/blue-horizontal-sort-icon.svg"></button>
+        <div class="orientation-buttons-container">
           <button class="selected-orientation-button" id="verticalLayoutButton"><img id="verticalLayoutButtonIcon" src="./assets/img/white-vertical-sort-icon.svg"></button>
+          <button id="horizontalLayoutButton"><img id="horizontalLayoutButtonIcon" src="./assets/img/blue-horizontal-sort-icon.svg"></button>
         </div>
       </div>
     </main>
@@ -48,7 +48,7 @@
         <p>COPYRIGHT © 2024 ASWAK ASSALAM — TOUS DROITS RÉSERVÉS.</p>
       </div>
     </footer>
-</body>
-<script src="assets/js/store-list.js"></script>
-<script src="assets/js/dropdown.js"></script>
+  </body>
+  <script src="assets/js/store-list.js"></script>
+  <script src="assets/js/dropdown.js"></script>
 </html>

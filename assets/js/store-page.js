@@ -29,13 +29,13 @@ const surfaceInputModifyHelp = document.getElementById("surfaceInputModifyHelp")
 
 // titles 
 
-const dashboardHeading = document.getElementById("dashboard-heading");
-const headingSupportingText = document.getElementById("heading-supporting-text")
+const dashboardHeading = document.getElementById("storeDashboardHeader");
+const headingSupportingText = document.getElementById("storeDashboardHeaderSupportingText");
 
 let dataIndex ;
 
-dashboardHeading.innerHTML = `${storeStorage[temporaryStoreId].storeName}`
-headingSupportingText.innerHTML = `${storeStorage[temporaryStoreId].storeLocation}`
+dashboardHeading.innerHTML = `${storeStorage[temporaryStoreId].storeName}`;
+headingSupportingText.innerText = `À ${storeStorage[temporaryStoreId].storeLocation}`;
 
 
 
@@ -120,7 +120,7 @@ function renderData() {
     });
 
     cancelEditButton.addEventListener("click" , () => {
-        editDataModal.close()
+        editDataModal.close();
     })
     
     applyEditButton.addEventListener("click", ()=>{
@@ -166,24 +166,16 @@ function renderData() {
             const newDataWorkForce = workforceInputModify.value;
             const newDataSurface = surfaceInputModify.value;
             
-            
             dataStorage[dataIndex].dataYear = newDataYear;
             dataStorage[dataIndex].dataTurnover = newDataTurnOver;
             dataStorage[dataIndex].dataWorkforce = newDataWorkForce;
             dataStorage[dataIndex].dataSurface = newDataSurface;
         
             localStorage.setItem("dataStorage", JSON.stringify(dataStorage));
-        
             editDataModal.close();
-        
             location.reload();
         }
-        
-        
-        
     })
-
-
 
     const deleteButtons = document.querySelectorAll("#deleteButton");
 
@@ -197,7 +189,6 @@ function renderData() {
         deleteDataModal.close();
     })
 
-
     confirmDeleteButton.addEventListener("click" , () => {
         console.log(dataIndex);
         dataStorage.splice(dataIndex, 1);
@@ -206,7 +197,6 @@ function renderData() {
         location.reload();
     })
 }
-
 
 const restoreDefault = () => {
     yearInputHelp.innerHTML = "";
@@ -252,7 +242,6 @@ const addData = (dataYear, dataTurnover, dataWorkforce, dataSurface) => {
     });
 
     localStorage.setItem('dataStorage', JSON.stringify(dataStorage));
-    //renderData();
 };
 
 submitAddButton.addEventListener("click", function () {
@@ -307,5 +296,4 @@ submitAddButton.addEventListener("click", function () {
         addDataModal.close();
         window.location.href = "./store-page.html";
     }
-    
 });

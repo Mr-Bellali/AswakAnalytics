@@ -12,37 +12,34 @@
   <body>
     <nav class="navbar-container">
       <div class="navbar-elements">
-        <div class="navbar-left-elements">
-          <img class="navbar-logo" src="assets/img/aswakassalam-logo.png" alt="Logo">
+        <div class="navbar-navigation-elements">
+          <img class="navbar-logo" src="./assets/img/aswakassalam-logo.png" alt="Aswak Assalam Logo">
           <div>
-            <ul class="navbar-links">
-              <li class="active-navbar-link">Dashboard</li>
-              <li><a href="./store-list.html">Liste des Magasins</a></li>
-              <li><a href="./add-store.html">Ajouter un Magasin</a></li>
+            <ul class="navbar-navigation">
+              <li class="active-navigation-element">Dashboard</li>
+              <li><a href="./store-list.html">Magasins</li>
+              <li><a href="./add-store.html">Ajouter Magasin</a></li>
             </ul>
           </div>
         </div>
-        <button class="logout-button" id="logoutButton"><img src="assets/img/logout-icon.svg" alt="Logout Icon"></button>
+        <button class="logout-button" id="logoutButton"><img src="./assets/img/logout-icon.svg" alt="Logout Icon"></button>
       </div>
     </nav>
     <main class="main-container">
       <div class="dashboard-nav-elements">
         <div>
           <ul class="dashboard-nav-links">
-            <li>Chiffre d'affaire</li>
-            <li class="active-dashboard-nav-element">Effectif</li>
+            <li class="active-dashboard-nav-element">Chiffre d'affaire</li>
+            <li>Effectif</li>
             <li>Surface</li>
           </ul>
         </div>
         <div class="custom-dropdown">
           <div class="selected-option" id="locationSelect">
             Année
-            <img class="arrow-icon" src="assets/img/dropdown-icon.svg">
+            <img class="arrow-icon" src="./assets/img/dropdown-icon.svg">
           </div>
           <div class="dropdown-options">
-            <div>2024</div>
-            <div>2023</div>
-            <div>2022</div>
           </div>
         </div>
       </div>
@@ -68,10 +65,10 @@
           <div class="deviation-coefficient-container">
             <p>Écart type et coefficient de variation</p>
             <p class="margin-top-12" id="deviationCoefficient">13.8%</p>
-            <p class="margin-top-24">L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de 610 000 DHS, et le coefficient de variation est de 0,131</p>
+            <p class="margin-top-24">L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de <span id="moyenne">610 000 DHS</span>, et le coefficient de variation est de <span id="coefficientVal">0,131</span></p>
           </div>
           <div class="chart-container">
-            <canvas id="myChart"></canvas>
+            <canvas id="data-chart"></canvas>
           </div>
         </div>
       </div>
@@ -83,68 +80,6 @@
     </footer>
   </body>
   <script src="./assets/js/dashboard.js"></script>
-  <script src="assets/js/dropdown.js"></script>
+  <script src="./assets/js/dropdown.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Your data
-    const data = [54, 43, 47, 49, 33, 61, 53, 50, 48, 47, 40, 39, 36, 43, 45, 46, 47, 48, 33, 50, 49, 47, 46, 45, 48, 49, 35, 41, 60];
-
-    // Process the data to calculate frequencies
-    const frequencyData = {};
-    data.forEach(value => {
-    if (frequencyData[value]) {
-        frequencyData[value]++;
-    } else {
-        frequencyData[value] = 1;
-    }
-    });
-
-    // Prepare the chart data
-    const labels = Object.keys(frequencyData);
-    const dataValues = Object.values(frequencyData);
-
-    // Create the bar chart
-    const ctx = document.getElementById('myChart').getContext('2d');
-    Chart.defaults.font.family = "'Nunito Sans', sans-serif";
-
-    new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-          label: 'Frequency',
-          data: dataValues,
-          borderWidth: 1,
-          backgroundColor: 'rgba(0, 59, 137, 0.5)',
-          borderColor: 'rgba(16, 16, 16, 0.6)'
-        }]
-    },
-    options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              display: true,
-            },
-            grid: {
-              drawTicks: false,
-            },
-            border: {
-              display: false,
-            }
-          },
-          x: {
-            grid: {
-              display: false
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
-    }
-    });
-  </script>  
 </html>

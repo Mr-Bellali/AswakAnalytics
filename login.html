@@ -7,23 +7,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
   </head>
   <body>
-    <main class="auth-container">
-      <form class="auth-form">
-        <img src="assets/img/aswakassalam-logo.png" alt="Logo">
-        <h1 class="auth-form-header margin-top-32">Se connecter</h1>
-        <p class="auth-form-header-supporting-text margin-top-12">Veuillez saisir vos coordonnées.</p>
-        <label class="auth-form-input-label margin-top-32" for="emailInput">Adresse e-mail</label>
-        <input class="auth-form-input" id="emailInput" name="emailInput" type="email" placeholder="john.doe@example.com" required>
+    <main class="login-container">
+      <form class="login-form">
+        <img src="./assets/img/aswakassalam-logo.png" alt="Logo">
+        <h1 class="login-form-header margin-top-32">Se connecter</h1>
+        <p class="login-form-header-supporting-text margin-top-12">Veuillez saisir vos coordonnées.</p>
+        <label class="login-form-input-label margin-top-32" for="emailInput">Adresse e-mail</label>
+        <input class="login-form-input margin-top-6" id="emailInput" name="emailInput" type="email" placeholder="john.doe@example.com" required>
         <p id="emailInputHelp" class="input-help margin-top-6 hidden"></p>
-        <label class="auth-form-input-label margin-top-22" for="passwordInput">Mot de passe</label>
-        <input class="auth-form-input" id="passwordInput" name="passwordInput" type="password" placeholder="••••••••" required>
+        <label class="login-form-input-label margin-top-22" for="passwordInput">Mot de passe</label>
+        <input class="login-form-input margin-top-6" id="passwordInput" name="passwordInput" type="password" placeholder="••••••••" required>
         <p id="passwordInputHelp" class="input-help margin-top-6 hidden"></p>
-        <button class=" margin-top-22" id="loginButton" type="submit">Se connecter</button>
+        <button class="login-form-button margin-top-22" id="loginButton" type="submit">Se connecter</button>
       </form>
     </main>
   </body>
-  <script src="assets/js/login.js"></script>
+  <script src="./assets/js/login.js"></script>
 </html>

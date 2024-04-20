@@ -1,13 +1,13 @@
-let storeStorage = JSON.parse(localStorage.getItem('storeStorage')) || [];
+let storeStorage = JSON.parse(localStorage.getItem("storeStorage")) || [];
 let dataStorage = [];
 
-const openingDateInput = document.getElementById('openingDateInput');
-const locationInput = document.getElementById('locationInput');
-const nameInput = document.getElementById('nameInput');
-const openingDateInputHelp = document.getElementById("openingDateInputHelp")
-const locationInputHelp = document.getElementById("locationInputHelp")
+const openingDateInput = document.getElementById("openingDateInput");
+const locationInput = document.getElementById("locationInput");
+const nameInput = document.getElementById("nameInput");
+const openingDateInputHelp = document.getElementById("openingDateInputHelp");
+const locationInputHelp = document.getElementById("locationInputHelp");
 const nameInputHelp = document.getElementById("nameInputHelp");
-
+const addButton = document.getElementById("addButton");
 
 const addStore = (storeOpeningDate, storeLocation, storeName) => {
   const lastStoreId = storeStorage.length > 0 ? parseInt(storeStorage[storeStorage.length - 1].storeId) : 0;
@@ -23,7 +23,7 @@ const addStore = (storeOpeningDate, storeLocation, storeName) => {
     storeName: storeName
   });
 
-  localStorage.setItem('storeStorage', JSON.stringify(storeStorage));
+  localStorage.setItem("storeStorage", JSON.stringify(storeStorage));
   console.log("Store added:", storeStorage);
 };
 
@@ -42,18 +42,19 @@ const restoreDefault = () => {
   openingDateInput.style.outline = "none";
 }
 
-window.addEventListener('load', () => {
-  document.getElementById('openingDateInput').value = '';
-  document.getElementById('locationInput').value = '';
-  document.getElementById('nameInput').value = '';
+window.addEventListener("load", () => {
+  document.getElementById("openingDateInput").value = "";
+  document.getElementById("locationInput").value = "";
+  document.getElementById("nameInput").value = "";
 });
 
-document.getElementById('addButton').addEventListener('click', function() {
+addButton.addEventListener("click", (event) => {
+  event.preventDefault();
   const currentDate = new Date(); 
   restoreDefault();
   let isError = false;
-    
-  if (locationInput.value === '') {
+  
+  if (locationInput.value === "") {
     locationInputHelp.innerText = "Veuillez saisir une emplacement valide.";
     locationInputHelp.classList.remove("hidden");
     locationInput.style.border = "1px solid var(--red-color)";
@@ -61,7 +62,7 @@ document.getElementById('addButton').addEventListener('click', function() {
     isError = true;
   } 
     
-  if (nameInput.value === '') {
+  if (nameInput.value === "") {
     nameInputHelp.innerText = "Veuillez saisir un nom valide.";
     nameInputHelp.classList.remove("hidden");
     nameInput.style.border = "1px solid var(--red-color)";
@@ -69,7 +70,7 @@ document.getElementById('addButton').addEventListener('click', function() {
     isError = true;
   } 
     
-  if (openingDateInput.value === '') {
+  if (openingDateInput.value === "") {
     openingDateInputHelp.innerText = "Veuillez saisir une date d'ouverture valide.";
     openingDateInputHelp.classList.remove("hidden");
     openingDateInput.style.border = "1px solid var(--red-color)";
@@ -78,11 +79,13 @@ document.getElementById('addButton').addEventListener('click', function() {
   }
 
   if (!isError) {
-    const openingDate = new Date(openingDateInput.value);
-    const location = document.getElementById('locationInput').value;
-    const name = document.getElementById('nameInput').value;
+    const [day, month, year] = openingDateInput.value.split("/");
+    const isoDateString = `${year}-${month}-${day}`;
+    const openingDate = new Date(isoDateString);
+    const location = document.getElementById("locationInput").value;
+    const name = document.getElementById("nameInput").value;
 
-    if (openingDate > currentDate || isNaN(openingDate)) { 
+    if (openingDate > currentDate || isNaN(openingDate)) {
       const openingDateInputHelp = document.getElementById("openingDateInputHelp");
       openingDateInputHelp.innerText = "Veuillez saisir une date d'ouverture valide.";
       openingDateInputHelp.classList.remove("hidden");
@@ -90,10 +93,10 @@ document.getElementById('addButton').addEventListener('click', function() {
       openingDateInput.style.outline = "4px solid var(--error-outline-red-color)";
     } 
       
-    else { 
-      addStore(openingDateInput.value, location, name);
+    else {
+      addStore(isoDateString, location, name);
       openingDateInput.value = "";
-      locationInput.value = ""; 
+      locationInput.value = "";
       nameInput.value = "";
     }
   }
