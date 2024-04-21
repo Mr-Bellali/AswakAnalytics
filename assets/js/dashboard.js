@@ -20,16 +20,9 @@ let turnoverData = dataStorage.map((data) => data.dataTurnover);
 let workforceData = dataStorage.map((data) => data.dataWorkforce);
 let surfaceData = dataStorage.map((data) => data.dataSurface);
 
-console.log("Turnover Data:", turnoverData);
-console.log("Workforce Data:", workforceData);
-console.log("Surface Data:", surfaceData);
-
 let dates = dataStorage.map((data) => data.dataYear);
-let years = dates.map((date) => {
-    return date.split("/")[2];
-})
 
-const uniqueYears =  Array.from(new Set(dates.map(dateString => dateString.split("/")[2]))).sort((a, b) => b - a);
+const uniqueYears =  Array.from(new Set(dates)).sort((a, b) => b - a);
 
 const dateSelect = document.querySelector(".dropdown-options");
 const selectedOption = document.querySelector(".selected-option");
@@ -75,7 +68,7 @@ const calculateMode = (dataArray) => {
   }
  
   return mode;
- }
+}
 
 const calculateMedian = (dataArray) => {
   const intArray = dataArray.map(Number);
@@ -106,18 +99,26 @@ const formatNumberWithSpaces = (number) => {
 
 window.onload = () => {
   turnoverTabButton.classList.add("active-dashboard-navigation-button");
+  selectedOption.textContent = uniqueYears[0];
 
-  averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH";
+  let turnoverByYear = [];
+  for (let i = 0; i < dataStorage.length; i++) {
+    if (parseInt(dataStorage[i].dataYear) === parseInt(uniqueYears[0])) {
+      turnoverByYear.push(dataStorage[i].dataTurnover);
+    }
+  }
+
+  averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverByYear)) + " DH";
   averageValueHint.innerText = `Le chiffre d'affaires moyen de tous les magasins.`
 
-  modeValue.innerText = calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
-  modeValueHint.innerText = `Le chiffre d'affaires réalisé par le plus grand nombre de magasins est ${calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"}.`;
+  modeValue.innerText = calculateMode(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH";
+  modeValueHint.innerText = `Le chiffre d'affaires réalisé par le plus grand nombre de magasins est ${calculateMode(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH"}.`;
 
-  medianValue.innerText = calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
-  medianValueHint.innerText = `50% des magasins réalisent un chiffre d'affaires inférieur à ${calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"} et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.`;
+  medianValue.innerText = calculateMedian(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH";
+  medianValueHint.innerText = `50% des magasins réalisent un chiffre d'affaires inférieur à ${calculateMedian(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH"} et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.`;
 
-  deviationCoefficient.innerText = calculateDeviation(turnoverData).toFixed(2) + "%";
-  deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverData) * 100) / calculateAverage(turnoverData)).toFixed(4)}.`;
+  deviationCoefficient.innerText = calculateDeviation(turnoverByYear).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverByYear)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverByYear) * 100) / calculateAverage(turnoverByYear)).toFixed(4)}.`;
 
   yearSelect.innerHTML = `${uniqueYears[0]}
   <img class="arrow-icon" src="./assets/img/dropdown-icon.svg">`;
@@ -135,17 +136,25 @@ turnoverTabButton.addEventListener("click", () => {
 
   turnoverTabButton.classList.add("active-dashboard-navigation-button");
 
-  averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH";
+  selectedYear = selectedOption.textContent.trim();
+  let turnoverByYear = [];
+  for (let i = 0; i < dataStorage.length; i++) {
+    if (parseInt(dataStorage[i].dataYear) === parseInt(selectedYear)) {
+      turnoverByYear.push(dataStorage[i].dataTurnover);
+    }
+  }
+
+  averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverByYear)) + " DH";
   averageValueHint.innerText = `Le chiffre d'affaires moyen de tous les magasins.`
 
-  modeValue.innerText = calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
-  modeValueHint.innerText = `Le chiffre d'affaires réalisé par le plus grand nombre de magasins est ${calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"}.`;
+  modeValue.innerText = calculateMode(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH";
+  modeValueHint.innerText = `Le chiffre d'affaires réalisé par le plus grand nombre de magasins est ${calculateMode(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH"}.`;
 
-  medianValue.innerText = calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
-  medianValueHint.innerText = `50% des magasins réalisent un chiffre d'affaires inférieur à ${calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"} et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.`;
+  medianValue.innerText = calculateMedian(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH";
+  medianValueHint.innerText = `50% des magasins réalisent un chiffre d'affaires inférieur à ${calculateMedian(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH"} et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.`;
 
-  deviationCoefficient.innerText = calculateDeviation(turnoverData).toFixed(2) + "%";
-  deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverData) * 100) / calculateAverage(turnoverData)).toFixed(4)}.`;
+  deviationCoefficient.innerText = calculateDeviation(turnoverByYear).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverByYear)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverByYear) * 100) / calculateAverage(turnoverByYear)).toFixed(4)}.`;
   updateTurnoversChart(selectedOption);
 });
 
@@ -160,17 +169,25 @@ workforceTabButton.addEventListener("click", () => {
 
   workforceTabButton.classList.add("active-dashboard-navigation-button");
 
-  averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(workforceData));
+  selectedYear = selectedOption.textContent.trim();
+  let workforceByYear = [];
+  for (let i = 0; i < dataStorage.length; i++) {
+    if (parseInt(dataStorage[i].dataYear) === parseInt(selectedYear)) {
+      workforceByYear.push(dataStorage[i].dataWorkforce);
+    }
+  }
+
+  averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(workforceByYear));
   averageValueHint.innerText = `L'effectif moyen de tous les magasins.`
 
-  modeValue.innerText = calculateMode(workforceData);
-  modeValueHint.innerText = `L'effectif attends par le plus grand nombre de magasins est ${calculateMode(workforceData)}.`;
+  modeValue.innerText = calculateMode(workforceByYear);
+  modeValueHint.innerText = `L'effectif attends par le plus grand nombre de magasins est ${calculateMode(workforceByYear)}.`;
 
-  medianValue.innerText = calculateMedian(workforceData);
-  medianValueHint.innerText = `50% des magasins ayant un effectif inférieur à ${calculateMedian(workforceData)} et, par conséquent, 50% d'entre eux ayant un effectif supérieur à ce résultat.`;
+  medianValue.innerText = calculateMedian(workforceByYear);
+  medianValueHint.innerText = `50% des magasins ayant un effectif inférieur à ${calculateMedian(workforceByYear)} et, par conséquent, 50% d'entre eux ayant un effectif supérieur à ce résultat.`;
 
-  deviationCoefficient.innerText = calculateDeviation(workforceData).toFixed(2) + "%";
-  deviationCoefficientHint.innerText = `L'écart-type montre que l'effectif des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(workforceData))}, et le coefficient de variation est de ${((calculateDeviation(workforceData) * 100) / calculateAverage(workforceData)).toFixed(4)}.`;
+  deviationCoefficient.innerText = calculateDeviation(workforceByYear).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que l'effectif des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(workforceByYear))}, et le coefficient de variation est de ${((calculateDeviation(workforceByYear) * 100) / calculateAverage(workforceByYear)).toFixed(4)}.`;
   updateWorkforcesChart(selectedOption);
 });
 
@@ -185,17 +202,25 @@ surfaceTabButton.addEventListener("click", () => {
 
   surfaceTabButton.classList.add("active-dashboard-navigation-button");
 
-  averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(surfaceData)) + " m²";
+  selectedYear = selectedOption.textContent.trim();
+  let surfaceByYear = [];
+  for (let i = 0; i < dataStorage.length; i++) {
+    if (parseInt(dataStorage[i].dataYear) === parseInt(selectedYear)) {
+      surfaceByYear.push(dataStorage[i].dataSurface);
+    }
+  }
+
+  averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(surfaceByYear)) + " m²";
   averageValueHint.innerText = `Surface moyen de tous les magasins.`
 
-  modeValue.innerText = parseInt(calculateMode(surfaceData))  + " m²";
-  modeValueHint.innerText = `Surface attends par le plus grand nombre de magasins est ${parseInt(calculateMode(surfaceData))  + " m²"}.`;
+  modeValue.innerText = parseInt(calculateMode(surfaceByYear))  + " m²";
+  modeValueHint.innerText = `Surface attends par le plus grand nombre de magasins est ${parseInt(calculateMode(surfaceByYear))  + " m²"}.`;
 
-  medianValue.innerText = calculateMedian(surfaceData) + " m²";
-  medianValueHint.innerText = `50% des magasins ayant un surface inférieur à ${calculateMedian(surfaceData) + " m²"} et, par conséquent, 50% d'entre eux ayant un surface supérieur à ce résultat.`;
+  medianValue.innerText = calculateMedian(surfaceByYear) + " m²";
+  medianValueHint.innerText = `50% des magasins ayant un surface inférieur à ${calculateMedian(surfaceByYear) + " m²"} et, par conséquent, 50% d'entre eux ayant un surface supérieur à ce résultat.`;
 
-  deviationCoefficient.innerText = calculateDeviation(surfaceData).toFixed(2) + "%";
-  deviationCoefficientHint.innerText = `L'écart-type montre que surface des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(surfaceData)) + " m²"}, et le coefficient de variation est de ${((calculateDeviation(surfaceData) * 100) / calculateAverage(surfaceData)).toFixed(4)}.`;
+  deviationCoefficient.innerText = calculateDeviation(surfaceByYear).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que surface des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(surfaceByYear)) + " m²"}, et le coefficient de variation est de ${((calculateDeviation(surfaceByYear) * 100) / calculateAverage(surfaceByYear)).toFixed(4)}.`;
   updateWorkforcesChart(selectedOption);
 });
 
@@ -206,11 +231,11 @@ dateSelect.addEventListener("click", (e) => {
     if (turnoverTabButton.classList.contains("active-dashboard-navigation-button")) {
       let turnoverByYear = [];
       for (let i = 0; i < dataStorage.length; i++) {
-        const [day, month, year] = dataStorage[i].dataYear.split("/");
-        if (parseInt(year) === selectedYear) {
+        if (parseInt(dataStorage[i].dataYear) === selectedYear) {
           turnoverByYear.push(dataStorage[i].dataTurnover);
         }
       }
+
       averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverByYear)) + " DH";
       averageValueHint.innerText = `Le chiffre d'affaires moyen de tous les magasins.`
 
@@ -226,11 +251,47 @@ dateSelect.addEventListener("click", (e) => {
     }
 
     if (workforceTabButton.classList.contains("active-dashboard-navigation-button")) {
+      let workforceByYear = [];
+      for (let i = 0; i < dataStorage.length; i++) {
+        if (parseInt(dataStorage[i].dataYear) === selectedYear) {
+          workforceByYear.push(dataStorage[i].dataWorkforce);
+        }
+      }
 
+      averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(workforceByYear));
+      averageValueHint.innerText = `L'effectif moyen de tous les magasins.`
+
+      modeValue.innerText = calculateMode(workforceByYear);
+      modeValueHint.innerText = `L'effectif attends par le plus grand nombre de magasins est ${calculateMode(workforceByYear)}.`;
+
+      medianValue.innerText = calculateMedian(workforceByYear);
+      medianValueHint.innerText = `50% des magasins ayant un effectif inférieur à ${calculateMedian(workforceByYear)} et, par conséquent, 50% d'entre eux ayant un effectif supérieur à ce résultat.`;
+
+      deviationCoefficient.innerText = calculateDeviation(workforceByYear).toFixed(2) + "%";
+      deviationCoefficientHint.innerText = `L'écart-type montre que l'effectif des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(workforceByYear))}, et le coefficient de variation est de ${((calculateDeviation(workforceByYear) * 100) / calculateAverage(workforceByYear)).toFixed(4)}.`;
+      updateWorkforcesChart(selectedYear);
     }
 
     if (surfaceTabButton.classList.contains("active-dashboard-navigation-button")) {
+      let surfaceByYear = [];
+      for (let i = 0; i < dataStorage.length; i++) {
+        if (parseInt(dataStorage[i].dataYear) === selectedYear) {
+          surfaceByYear.push(dataStorage[i].dataSurface);
+        }
+      }
 
+      averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(surfaceByYear)) + " m²";
+      averageValueHint.innerText = `Surface moyen de tous les magasins.`
+
+      modeValue.innerText = parseInt(calculateMode(surfaceByYear))  + " m²";
+      modeValueHint.innerText = `Surface attends par le plus grand nombre de magasins est ${parseInt(calculateMode(surfaceByYear))  + " m²"}.`;
+
+      medianValue.innerText = calculateMedian(surfaceByYear) + " m²";
+      medianValueHint.innerText = `50% des magasins ayant un surface inférieur à ${calculateMedian(surfaceByYear) + " m²"} et, par conséquent, 50% d'entre eux ayant un surface supérieur à ce résultat.`;
+
+      deviationCoefficient.innerText = calculateDeviation(surfaceByYear).toFixed(2) + "%";
+      deviationCoefficientHint.innerText = `L'écart-type montre que surface des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(surfaceByYear)) + " m²"}, et le coefficient de variation est de ${((calculateDeviation(surfaceByYear) * 100) / calculateAverage(surfaceByYear)).toFixed(4)}.`;
+      updateSurfacesChart(selectedYear);
     }
   }
 });
@@ -361,4 +422,16 @@ workforceTabButton.addEventListener('click', () => {
 surfaceTabButton.addEventListener('click', () => {
     const selectedYear = selectedOption.textContent;
     updateSurfacesChart(selectedYear);
+});
+
+//logout button
+logoutButton.addEventListener("click", () => {
+  const userData = JSON.parse(localStorage.getItem("userStorage"));
+  for(let i = 0; i < userData.length; i++){
+    if (userData[i].isActive === true){
+      userData[i].isActive = false;
+    }
+  }
+  localStorage.setItem("userStorage", JSON.stringify(userData));
+  window.location.href = "login.html";
 });

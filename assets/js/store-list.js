@@ -332,3 +332,15 @@ document.addEventListener("click", (e) => {
     }
   }
 });
+
+//logout button
+logoutButton.addEventListener("click", () => {
+  const userData = JSON.parse(localStorage.getItem("userStorage"));
+  for(let i = 0; i < userData.length; i++){
+    if (userData[i].isActive === true){
+      userData[i].isActive = false;
+    }
+  }
+  localStorage.setItem("userStorage", JSON.stringify(userData));
+  window.location.href = "login.html";
+});

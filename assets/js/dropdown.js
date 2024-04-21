@@ -9,7 +9,9 @@ customDropdowns.forEach(function (select) {
     function toggleArrowRotation() {
         if (dropdownOptions.style.display === 'block') {
             arrowIcon.style.transform = 'translate(-50%, -50%) rotate(180deg)';
-        } else {
+        } 
+        
+        else {
             arrowIcon.style.transform = 'translate(-50%, -50%) rotate(0deg)';
         }
     }
@@ -18,9 +20,12 @@ customDropdowns.forEach(function (select) {
         if (dropdownOptions.children.length === 0) {
             return;
         }
+        
         if (dropdownOptions.style.display === 'block') {
             dropdownOptions.style.display = 'none';
-        } else {
+        } 
+        
+        else {
             dropdownOptions.style.display = 'block';
         }
         toggleArrowRotation();

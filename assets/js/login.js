@@ -30,6 +30,14 @@ window.addEventListener("load", () => {
   }
 });
 
+let userData = JSON.parse(localStorage.getItem("userStorage"));
+
+for (let i = 0; i < userData.length; i++){
+  if (userData[i].isActive === true){
+    window.location.href = "dashboard.html";
+  }
+}
+
 const restoreDefault = () => {
   emailInputHelp.innerText = "";
   emailInputHelp.classList.add("hidden");
