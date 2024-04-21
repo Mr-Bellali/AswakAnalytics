@@ -130,15 +130,15 @@ function renderData() {
         let isError = false;
 
         if (yearInputModify.value === '' || isNaN(yearInputModify.value)) {
-            yearInputHelp.innerText = "Veuillez saisir un emplacement valide.";
-            yearInputHelp.classList.remove("hidden");
+            yearInputModifyHelp.innerText = "Veuillez saisir une année valide.";
+            yearInputModifyHelp.classList.remove("hidden");
             yearInputModify.style.border = "1px solid var(--red-color)";
             yearInputModify.style.outline = "4px solid var(--error-outline-red-color)";
             isError = true;
         }
         
         if (turnoverInputModify.value === '' || isNaN(turnoverInputModify.value)) {
-            turnoverInputModifyHelp.innerText = "Veuillez saisir un emplacement valide.";
+            turnoverInputModifyHelp.innerText = "Veuillez saisir un chiffre d'affaire valide.";
             turnoverInputModifyHelp.classList.remove("hidden");
             turnoverInputModify.style.border = "1px solid var(--red-color)";
             turnoverInputModify.style.outline = "4px solid var(--error-outline-red-color)";
@@ -146,7 +146,7 @@ function renderData() {
         }
         
         if (workforceInputModify.value === '' || isNaN(workforceInputModify.value)) {
-            workforceInputModifyHelp.innerText = "Veuillez saisir un emplacement valide.";
+            workforceInputModifyHelp.innerText = "Veuillez saisir une effectif valide.";
             workforceInputModifyHelp.classList.remove("hidden");
             workforceInputModify.style.border = "1px solid var(--red-color)";
             workforceInputModify.style.outline = "4px solid var(--error-outline-red-color)";
@@ -154,7 +154,7 @@ function renderData() {
         }
         
         if (surfaceInputModify.value === '' || isNaN(surfaceInputModify.value)) {
-            surfaceInputModifyHelp.innerText = "Veuillez saisir un emplacement valide.";
+            surfaceInputModifyHelp.innerText = "Veuillez saisir une surface valide.";
             surfaceInputModifyHelp.classList.remove("hidden");
             surfaceInputModify.style.border = "1px solid var(--red-color)";
             surfaceInputModify.style.outline = "4px solid var(--error-outline-red-color)";
@@ -256,7 +256,7 @@ submitAddButton.addEventListener("click", function () {
     let isError = false;
 
     if (yearInput.value === '' || isNaN(yearInput.value)) {
-        yearInputHelp.innerText = "Veuillez saisir une emplacement valide.";
+        yearInputHelp.innerText = "Veuillez saisir une année valide.";
         yearInputHelp.classList.remove("hidden");
         yearInput.style.border = "1px solid var(--red-color)";
         yearInput.style.outline = "4px solid var(--error-outline-red-color)";
@@ -264,7 +264,7 @@ submitAddButton.addEventListener("click", function () {
     }
     
     if (turnoverInput.value === '' || isNaN(turnoverInput.value)) {
-        turnoverInputHelp.innerText = "Veuillez saisir une emplacement valide.";
+        turnoverInputHelp.innerText = "Veuillez saisir un chiffre d'affaire valide.";
         turnoverInputHelp.classList.remove("hidden");
         turnoverInput.style.border = "1px solid var(--red-color)";
         turnoverInput.style.outline = "4px solid var(--error-outline-red-color)";
@@ -272,7 +272,7 @@ submitAddButton.addEventListener("click", function () {
     }
     
     if (workforceInput.value === '' || isNaN(workforceInput.value)) {
-        workforceInputHelp.innerText = "Veuillez saisir une emplacement valide.";
+        workforceInputHelp.innerText = "Veuillez saisir une effectif valide.";
         workforceInputHelp.classList.remove("hidden");
         workforceInput.style.border = "1px solid var(--red-color)";
         workforceInput.style.outline = "4px solid var(--error-outline-red-color)";
@@ -280,7 +280,7 @@ submitAddButton.addEventListener("click", function () {
     }
     
     if (surfaceInput.value === '' || isNaN(surfaceInput.value)) {
-        surfaceInputHelp.innerText = "Veuillez saisir une emplacement valide.";
+        surfaceInputHelp.innerText = "Veuillez saisir une surface valide.";
         surfaceInputHelp.classList.remove("hidden");
         surfaceInput.style.border = "1px solid var(--red-color)";
         surfaceInput.style.outline = "4px solid var(--error-outline-red-color)";
