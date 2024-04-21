@@ -3,7 +3,7 @@ const workforceTabButton = document.getElementById("workforceTabButton");
 const surfaceTabButton = document.getElementById("surfaceTabButton");
 const deviationCoefficient = document.getElementById("deviationCoefficient");
 const coefficientVal = document.getElementById("coefficientVal");
-const locationSelect = document.getElementById("locationSelect");
+const yearSelect = document.getElementById("yearSelect");
 
 const averageValueHint = document.getElementById("averageValueHint");
 const modeValueHint = document.getElementById("modeValueHint");
@@ -19,6 +19,11 @@ const dataStorage = JSON.parse(localStorage.getItem("dataStorage"));
 let turnoverData = dataStorage.map((data) => data.dataTurnover);
 let workforceData = dataStorage.map((data) => data.dataWorkforce);
 let surfaceData = dataStorage.map((data) => data.dataSurface);
+
+console.log("Turnover Data:", turnoverData);
+console.log("Workforce Data:", workforceData);
+console.log("Surface Data:", surfaceData);
+
 let dates = dataStorage.map((data) => data.dataYear);
 let years = dates.map((date) => {
     return date.split("/")[2];
@@ -28,6 +33,13 @@ const uniqueYears =  Array.from(new Set(dates.map(dateString => dateString.split
 
 const dateSelect = document.querySelector(".dropdown-options");
 const selectedOption = document.querySelector(".selected-option");
+
+uniqueYears.forEach((year) => {
+  const option = document.createElement("div");
+  option.textContent = year;
+  option.value = year;
+  dateSelect.appendChild(option);
+});
 
 const calculateAverage = (dataArray) => {
   let turnoverTotal = 0;
@@ -45,7 +57,7 @@ const calculateAverage = (dataArray) => {
 const calculateMode = (dataArray) => {
   let frequency = {};
   let maxFreq = 0;
-  let modes = [];
+  let mode = null;
  
   for (var i = 0; i < dataArray.length; i++) {
      var num = parseInt(dataArray[i], 10);
@@ -57,12 +69,13 @@ const calculateMode = (dataArray) => {
  
   for (var key in frequency) {
      if (frequency[key] === maxFreq) {
-       modes.push(Number(key));
+       mode = Number(key);
+       break;
      }
   }
  
-  return modes;
-}
+  return mode;
+ }
 
 const calculateMedian = (dataArray) => {
   const intArray = dataArray.map(Number);
@@ -106,7 +119,7 @@ window.onload = () => {
   deviationCoefficient.innerText = calculateDeviation(turnoverData).toFixed(2) + "%";
   deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverData) * 100) / calculateAverage(turnoverData)).toFixed(4)}.`;
 
-  locationSelect.innerHTML = `${uniqueYears[0]}
+  yearSelect.innerHTML = `${uniqueYears[0]}
   <img class="arrow-icon" src="./assets/img/dropdown-icon.svg">`;
   updateTurnoversChart(uniqueYears[0]);
 }
@@ -133,7 +146,7 @@ turnoverTabButton.addEventListener("click", () => {
 
   deviationCoefficient.innerText = calculateDeviation(turnoverData).toFixed(2) + "%";
   deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverData) * 100) / calculateAverage(turnoverData)).toFixed(4)}.`;
-  updateTurnoversChart(uniqueYears[0]);
+  updateTurnoversChart(selectedOption.textContent.trim());
 });
 
 workforceTabButton.addEventListener("click", () => {
@@ -158,18 +171,95 @@ workforceTabButton.addEventListener("click", () => {
 
   deviationCoefficient.innerText = calculateDeviation(workforceData).toFixed(2) + "%";
   deviationCoefficientHint.innerText = `L'écart-type montre que l'effectif des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(workforceData))}, et le coefficient de variation est de ${((calculateDeviation(workforceData) * 100) / calculateAverage(workforceData)).toFixed(4)}.`;
-  updateWorkforcesChart(uniqueYears[0]);
+  updateWorkforcesChart(selectedOption.textContent.trim());
 });
 
 surfaceTabButton.addEventListener("click", () => {
- // surface tab code goes here
+  if (turnoverTabButton.classList.contains("active-dashboard-navigation-button")) {
+    turnoverTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  if (workforceTabButton.classList.contains("active-dashboard-navigation-button")) {
+    workforceTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  surfaceTabButton.classList.add("active-dashboard-navigation-button");
+
+  averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(surfaceData)) + " m²";
+  averageValueHint.innerText = `Surface moyen de tous les magasins.`
+
+  modeValue.innerText = parseInt(calculateMode(surfaceData))  + " m²";
+  modeValueHint.innerText = `Surface attends par le plus grand nombre de magasins est ${parseInt(calculateMode(surfaceData))  + " m²"}.`;
+
+  medianValue.innerText = calculateMedian(surfaceData) + " m²";
+  medianValueHint.innerText = `50% des magasins ayant un surface inférieur à ${calculateMedian(surfaceData) + " m²"} et, par conséquent, 50% d'entre eux ayant un surface supérieur à ce résultat.`;
+
+  deviationCoefficient.innerText = calculateDeviation(surfaceData).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que surface des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(surfaceData)) + " m²"}, et le coefficient de variation est de ${((calculateDeviation(surfaceData) * 100) / calculateAverage(surfaceData)).toFixed(4)}.`;
+  updateWorkforcesChart(selectedOption.textContent.trim());
 });
 
 dateSelect.addEventListener("click", (e) => {
-  if (e.target.tagName === "div") {
+  if (e.target.tagName === "DIV") {
+    let selectedYear = parseInt(e.target.textContent);
 
-    // this is the value of selected year from dropdown menu
-    console.log(parseInt(e.target.textContent));
+    if (turnoverTabButton.classList.contains("active-dashboard-navigation-button")) {
+      let turnoverByYear = [];
+      for (let i = 0; i < dataStorage.length; i++) {
+        const [day, month, year] = dataStorage[i].dataYear.split("/");
+        if (parseInt(year) === selectedYear) {
+          turnoverByYear.push(dataStorage[i].dataTurnover);
+        }
+      }
+      averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverByYear)) + " DH";
+      averageValueHint.innerText = `Le chiffre d'affaires moyen de tous les magasins.`
+
+      modeValue.innerText = calculateMode(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH";
+      modeValueHint.innerText = `Le chiffre d'affaires réalisé par le plus grand nombre de magasins est ${calculateMode(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH"}.`;
+
+      medianValue.innerText = calculateMedian(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH";
+      medianValueHint.innerText = `50% des magasins réalisent un chiffre d'affaires inférieur à ${calculateMedian(turnoverByYear).toLocaleString().replace(/\./g, " ") + " DH"} et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.`;
+
+      deviationCoefficient.innerText = calculateDeviation(turnoverByYear).toFixed(2) + "%";
+      deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverByYear)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverByYear) * 100) / calculateAverage(turnoverByYear)).toFixed(4)}.`;
+      updateTurnoversChart(selectedYear);
+    }
+
+    if (workforceTabButton.classList.contains("active-dashboard-navigation-button")) {
+
+    }
+
+    if (surfaceTabButton.classList.contains("active-dashboard-navigation-button")) {
+
+    }
+
+
+//     const activeTab = document.querySelector('.active-dashboard-navigation-button');
+//     if (activeTab) {
+//       let data;
+//       if (activeTab.id === 'turnoverTabButton') {
+//         for (let i = 0; i < dataStorage.length; i++) {
+//           let dates = dataStorage.map((data) => data.dataYear);
+//           let years = dates.map((date) => {
+//           return date.split("/")[2];
+// })
+//           if (dataStorage[i].dataYear === selectedYear)
+//           {
+//             let selectedTurnover = [];
+//             selectedTurnover.push(dataStorage[i].dataTurnover);
+//             console.log(selectedTurnover);
+//           }
+//         }
+//         data = turnoverData;
+
+//       } else if (activeTab.id === 'workforceTabButton') {
+//         data = workforceData;
+//       } else if (activeTab.id === 'surfaceTabButton') {
+//         data = surfaceData;
+//       }
+
+//       console.log(data);
+//     }
   }
 
   // 1. check which tab is selected and use its data :
@@ -179,6 +269,7 @@ dateSelect.addEventListener("click", (e) => {
 
   // get 
 });
+
 
 let turnoversDataChart;
 let workforcesDataChart;
@@ -193,24 +284,16 @@ const filteredData = (year, dataKey) => {
     return dataStorage.filter(data => data.dataYear.split("/")[2] === year).map(data => data[dataKey]);
 }
 
-
-uniqueYears.forEach((year) => {
-    const option = document.createElement("div");
-    option.textContent = year;
-    option.value = year;
-    dateSelect.appendChild(option);
-});
-
 const updateTurnoversChart = (year) => {
-    updateChart(year.trim(), 'dataTurnover');
+    updateChart(year, 'dataTurnover');
 }
 
 const updateWorkforcesChart = (year) => {
-    updateChart(year.trim(), 'dataWorkforce');
+    updateChart(year, 'dataWorkforce');
 }
 
 const updateSurfacesChart = (year) => {
-    updateChart(year.trim(), 'dataSurface');
+    updateChart(year, 'dataSurface');
 }
 
 const updateChart = (year, dataKey) => {
