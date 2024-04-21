@@ -1,247 +1,317 @@
-// let turnOverLink = document.querySelector(".dashboard-nav-elements li:nth-of-type(1)");
-// let workForceLink = document.querySelector(".dashboard-nav-elements li:nth-of-type(2)");
-// let surfaceLink = document.querySelector(".dashboard-nav-elements li:nth-of-type(3)");
+const turnoverTabButton = document.getElementById("turnoverTabButton");
+const workforceTabButton = document.getElementById("workforceTabButton");
+const surfaceTabButton = document.getElementById("surfaceTabButton");
+const deviationCoefficient = document.getElementById("deviationCoefficient");
+const coefficientVal = document.getElementById("coefficientVal");
+const locationSelect = document.getElementById("locationSelect");
 
-// let avg = document.getElementById('averageValue');
-// let mode = document.getElementById('modeValue');
-// let median = document.getElementById('medianValue');
+const averageValueHint = document.getElementById("averageValueHint");
+const modeValueHint = document.getElementById("modeValueHint");
+const medianValueHint = document.getElementById("medianValueHint");
+const deviationCoefficientHint = document.getElementById("deviationCoefficientHint");
 
-// // const storeStorage = JSON.parse(localStorage.getItem("storeStorage"));
-// const dataStorage = JSON.parse(localStorage.getItem("dataStorage"));
-
-// let turnOver = dataStorage.map((data) => data.dataTurnover);
-// let dates = dataStorage.map((data) => data.dataYear);
-// let years = dates.map((date) => {
-//     return date.split("/")[2];
-// })
-
-// const uniqueYears = new Set(dates.map(dateString => dateString.split("/")[2]));
-
-// const dateSelect = document.querySelector(".dropdown-options");
-
-// uniqueYears.forEach((year) => {
-//     const div = document.createElement("div");
-//     div.textContent = year;
-//     dateSelect.appendChild(div);
-// });
-
-// //filter
-
-
-// let turnoverTotal = 0;
-// let counter = 0;
-// let turnoverAverage = 0;
-
-// //average calculation
-// const average = () => {
-//     turnOver.forEach(item => {
-//         turnoverTotal += item;
-//         counter++;
-//     });
-//     turnoverAverage = turnoverTotal / counter;
-//     return turnoverAverage.toLocaleString().replace(/,/g, " ") + " DH";
-// }
-
-// const mode_fun = () => {
-//     if (turnOver.length > 0) {
-//         let modeVal = turnOver[0];
-//         for (let i = 1; i < turnOver.length; i++) {
-//             if (turnOver[i] > modeVal) {
-//                 modeVal = turnOver[i];
-//             }
-//         }
-//         return modeVal.toLocaleString().replace(/,/g, " ") + " DH";
-//     }
-// }
-
-// function mediane_fun() {
-//     let c;
-
-//     if (turnOver.length > 0) {
-//         turnOver.sort((a, b) => a - b);
-
-//         let index = turnOver.length;
-//         let medianeVal;
-
-//         if (index % 2 === 0) {
-//             medianeVal = (turnOver[index / 2] + turnOver[(index / 2) - 1]) / 2;
-//         } else {
-//             medianeVal = turnOver[Math.floor(index / 2)];
-//         }
-//         return medianeVal.toLocaleString().replace(/,/g, " ") + " DH";
-//     }
-// }
-
-// function display_ecart_type() {
-//     let somme = 0;
-//     for (let i = 0; i < turnOver.length; i++) {
-//         somme += turnOver[i];
-//     }
-//     let moyenne = somme / turnOver.length;
-
-//     let variance = 0;
-//     for (let i = 0; i < turnOver.length; i++) {
-//         variance += Math.pow(turnOver[i] - moyenne, 2);
-//     }
-//     variance /= turnOver.length;
-//     let ecartType = Math.sqrt(variance);
-
-//     let coefficientVariation = (ecartType / moyenne) * 100; 
-
-//     return {
-//         moyenne: moyenne,
-//         ecartType: ecartType,
-//         coefficientVariation: coefficientVariation
-//     };
-// }
-
-// let result = display_ecart_type();
-
-// window.onload = () => {
-//     avg.innerHTML = average();
-//     mode.innerHTML = mode_fun();
-//     median.innerHTML = mediane_fun();
-
-//     document.getElementById("moyenne").innerHTML = result.moyenne.toFixed(2).toLocaleString().replace(/,/g, " ") + " DH";
-//     document.getElementById("deviationCoefficient").innerHTML = result.coefficientVariation.toFixed(2) + " %";
-//     document.getElementById("coefficientVal").innerHTML = result.ecartType.toFixed(2);
-// }
-
+const averageValue = document.getElementById('averageValue');
+const modeValue = document.getElementById('modeValue');
+const medianValue = document.getElementById('medianValue');
 
 const dataStorage = JSON.parse(localStorage.getItem("dataStorage"));
-        let dates = dataStorage.map((data) => data.dataYear);
-        let turnoversDataChart;
-        let workforcesDataChart;
-        let surfacesDataChart;
 
-        let avgDataChart;
-        let recursiveDataChart;
-        let plageDataChart = [];
-        let fruequenceDataChart = [];
+let turnoverData = dataStorage.map((data) => data.dataTurnover);
+let workforceData = dataStorage.map((data) => data.dataWorkforce);
+let surfaceData = dataStorage.map((data) => data.dataSurface);
+let dates = dataStorage.map((data) => data.dataYear);
+let years = dates.map((date) => {
+    return date.split("/")[2];
+})
 
-        const filteredData = (year, dataKey) => {
-            return dataStorage.filter(data => data.dataYear === year).map(data => data[dataKey]);
+const uniqueYears =  Array.from(new Set(dates.map(dateString => dateString.split("/")[2]))).sort((a, b) => b - a);
+
+const dateSelect = document.querySelector(".dropdown-options");
+const selectedOption = document.querySelector(".selected-option");
+
+const calculateAverage = (dataArray) => {
+  let turnoverTotal = 0;
+  let counter = 0;
+  let turnoverAverage = 0;
+
+  dataArray.forEach(item => {
+    turnoverTotal += parseInt(item);
+    counter++;
+  });
+  turnoverAverage = turnoverTotal / counter;
+  return turnoverAverage;
+}
+
+const calculateMode = (dataArray) => {
+  let frequency = {};
+  let maxFreq = 0;
+  let modes = [];
+ 
+  for (var i = 0; i < dataArray.length; i++) {
+     var num = parseInt(dataArray[i], 10);
+     frequency[num] = (frequency[num] || 0) + 1;
+     if (frequency[num] > maxFreq) {
+       maxFreq = frequency[num];
+     }
+  }
+ 
+  for (var key in frequency) {
+     if (frequency[key] === maxFreq) {
+       modes.push(Number(key));
+     }
+  }
+ 
+  return modes;
+}
+
+const calculateMedian = (dataArray) => {
+  const intArray = dataArray.map(Number);
+  intArray.sort((a, b) => a - b);
+  const middle = Math.floor(intArray.length / 2);
+ 
+  if (intArray.length % 2 === 0) {
+     return (intArray[middle - 1] + intArray[middle]) / 2;
+  }
+  
+  else {
+     return intArray[middle];
+  }
+}
+
+const calculateDeviation = (dataArray) => {
+    const numbers = dataArray.map(Number);
+    const mean = numbers.reduce((acc, val) => acc + val, 0) / numbers.length;
+    const sumOfSquaredDifferences = numbers.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0);
+    const standardDeviation = Math.sqrt(sumOfSquaredDifferences / (numbers.length - 1));
+    const standardDeviationPercentage = (standardDeviation / mean) * 100;
+    return standardDeviationPercentage;
+}
+
+const formatNumberWithSpaces = (number) => {
+  return number.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
+}
+
+window.onload = () => {
+  turnoverTabButton.classList.add("active-dashboard-navigation-button");
+
+  averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH";
+  averageValueHint.innerText = `Le chiffre d'affaires moyen de tous les magasins.`
+
+  modeValue.innerText = calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
+  modeValueHint.innerText = `Le chiffre d'affaires réalisé par le plus grand nombre de magasins est ${calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"}.`;
+
+  medianValue.innerText = calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
+  medianValueHint.innerText = `50% des magasins réalisent un chiffre d'affaires inférieur à ${calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"} et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.`;
+
+  deviationCoefficient.innerText = calculateDeviation(turnoverData).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverData) * 100) / calculateAverage(turnoverData)).toFixed(4)}.`;
+
+  locationSelect.innerHTML = `${uniqueYears[0]}
+  <img class="arrow-icon" src="./assets/img/dropdown-icon.svg">`;
+  updateTurnoversChart(uniqueYears[0]);
+}
+
+turnoverTabButton.addEventListener("click", () => {
+  if (workforceTabButton.classList.contains("active-dashboard-navigation-button")) {
+    workforceTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  if (surfaceTabButton.classList.contains("active-dashboard-navigation-button")) {
+    surfaceTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  turnoverTabButton.classList.add("active-dashboard-navigation-button");
+
+  averageValue.innerText = formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH";
+  averageValueHint.innerText = `Le chiffre d'affaires moyen de tous les magasins.`
+
+  modeValue.innerText = calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
+  modeValueHint.innerText = `Le chiffre d'affaires réalisé par le plus grand nombre de magasins est ${calculateMode(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"}.`;
+
+  medianValue.innerText = calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH";
+  medianValueHint.innerText = `50% des magasins réalisent un chiffre d'affaires inférieur à ${calculateMedian(turnoverData).toLocaleString().replace(/\./g, " ") + " DH"} et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.`;
+
+  deviationCoefficient.innerText = calculateDeviation(turnoverData).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverData) * 100) / calculateAverage(turnoverData)).toFixed(4)}.`;
+  updateTurnoversChart(uniqueYears[0]);
+});
+
+workforceTabButton.addEventListener("click", () => {
+  if (turnoverTabButton.classList.contains("active-dashboard-navigation-button")) {
+    turnoverTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  if (surfaceTabButton.classList.contains("active-dashboard-navigation-button")) {
+    surfaceTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  workforceTabButton.classList.add("active-dashboard-navigation-button");
+
+  averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(workforceData));
+  averageValueHint.innerText = `L'effectif moyen de tous les magasins.`
+
+  modeValue.innerText = calculateMode(workforceData);
+  modeValueHint.innerText = `L'effectif attends par le plus grand nombre de magasins est ${calculateMode(workforceData)}.`;
+
+  medianValue.innerText = calculateMedian(workforceData);
+  medianValueHint.innerText = `50% des magasins ayant un effectif inférieur à ${calculateMedian(workforceData)} et, par conséquent, 50% d'entre eux ayant un effectif supérieur à ce résultat.`;
+
+  deviationCoefficient.innerText = calculateDeviation(workforceData).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que l'effectif des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(workforceData))}, et le coefficient de variation est de ${((calculateDeviation(workforceData) * 100) / calculateAverage(workforceData)).toFixed(4)}.`;
+  updateWorkforcesChart(uniqueYears[0]);
+});
+
+surfaceTabButton.addEventListener("click", () => {
+ // surface tab code goes here
+});
+
+dateSelect.addEventListener("click", (e) => {
+  if (e.target.tagName === "div") {
+
+    // this is the value of selected year from dropdown menu
+    console.log(parseInt(e.target.textContent));
+  }
+
+  // 1. check which tab is selected and use its data :
+  // if turnoverTabButton is selected (has .active-dashboard-navigation-button class name) use turnoverData
+  // if workforceTabButton is selected (has .active-dashboard-navigation-button class name) use workforceData 
+  // if surfaceTabButton is selected (has .active-dashboard-navigation-button class name) use surfaceData 
+
+  // get 
+});
+
+let turnoversDataChart;
+let workforcesDataChart;
+let surfacesDataChart;
+
+let avgDataChart;
+let recursiveDataChart;
+let plageDataChart = [];
+let fruequenceDataChart = [];
+
+const filteredData = (year, dataKey) => {
+    return dataStorage.filter(data => data.dataYear.split("/")[2] === year).map(data => data[dataKey]);
+}
+
+
+uniqueYears.forEach((year) => {
+    const option = document.createElement("div");
+    option.textContent = year;
+    option.value = year;
+    dateSelect.appendChild(option);
+});
+
+const updateTurnoversChart = (year) => {
+    updateChart(year.trim(), 'dataTurnover');
+}
+
+const updateWorkforcesChart = (year) => {
+    updateChart(year.trim(), 'dataWorkforce');
+}
+
+const updateSurfacesChart = (year) => {
+    updateChart(year.trim(), 'dataSurface');
+}
+
+const updateChart = (year, dataKey) => {
+    // Destroy existing chart if it exists
+    if (window.myChart instanceof Chart) {
+        window.myChart.destroy();
+    }
+
+    const filteredDataChart = filteredData(year, dataKey);
+
+    const maxData = Math.max(...filteredDataChart);
+    const minData = Math.min(...filteredDataChart);
+
+    avgDataChart = maxData - minData;
+
+    // Calculate the recursive interval
+    recursiveDataChart = avgDataChart / 5;
+
+    // Generate plageDataChart
+    if (filteredDataChart.length <= 1) {
+        // If there is only one value, create a single interval
+        plageDataChart = [[minData, maxData]];
+    } else {
+        // Otherwise, split the values into intervals
+        plageDataChart = [];
+        for (let i = minData; i < maxData; i += recursiveDataChart) {
+            plageDataChart.push([i, Math.min(i + recursiveDataChart, maxData)]);
         }
+        // Push the maximum value to ensure it's included
+        plageDataChart.push([maxData, maxData]);
+    }
+    
+    // Calculate frequency for each plage
+    fruequenceDataChart = plageDataChart.map(range => {
+        const [start, end] = range;
+        // Count the frequency within each plage
+        return filteredDataChart.filter(value => value >= start && value <= end).length;
+    });
 
-        const dateSelect = document.querySelector(".dropdown-options");
+    // Create the bar chart
+    const ctx = document.getElementById('data-chart').getContext('2d');
+    Chart.defaults.font.family = "'Nunito Sans', sans-serif";
 
-        dates.forEach((year) => {
-            const option = document.createElement("div");
-            option.textContent = year;
-            option.value = year;
-            dateSelect.appendChild(option);
-        });
-
-        const updateTurnoversChart = (year) => {
-            updateChart(year, 'dataTurnover');
-        }
-
-        const updateWorkforcesChart = (year) => {
-            updateChart(year, 'dataWorkforce');
-        }
-
-        const updateSurfacesChart = (year) => {
-            updateChart(year, 'dataSurface');
-        }
-
-        const updateChart = (year, dataKey) => {
-            // Destroy existing chart if it exists
-            if (window.myChart instanceof Chart) {
-                window.myChart.destroy();
-            }
-
-            const filteredDataChart = filteredData(year, dataKey);
-        
-            const maxData = Math.max(...filteredDataChart);
-            const minData = Math.min(...filteredDataChart);
-        
-            avgDataChart = maxData - minData;
-        
-            // Calculate the recursive interval
-            recursiveDataChart = avgDataChart / 5;
-
-            // Generate plageDataChart
-            if (filteredDataChart.length <= 1) {
-                // If there is only one value, create a single interval
-                plageDataChart = [[minData, maxData]];
-            } else {
-                // Otherwise, split the values into intervals
-                plageDataChart = [];
-                for (let i = minData; i < maxData; i += recursiveDataChart) {
-                    plageDataChart.push([i, Math.min(i + recursiveDataChart, maxData)]);
-                }
-                // Push the maximum value to ensure it's included
-                plageDataChart.push([maxData, maxData]);
-            }
-            
-            // Calculate frequency for each plage
-            fruequenceDataChart = plageDataChart.map(range => {
-                const [start, end] = range;
-                // Count the frequency within each plage
-                return filteredDataChart.filter(value => value >= start && value <= end).length;
-            });
-
-            // Create the bar chart
-            const ctx = document.getElementById('data-chart').getContext('2d');
-            Chart.defaults.font.family = "'Nunito Sans', sans-serif";
-
-            window.myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: plageDataChart.map(range => `${range[0]} - ${range[1]}`), // Use plages as labels
-                    datasets: [{
-                        label: 'Frequency',
-                        data: fruequenceDataChart, // Use frequency data
-                        borderWidth: 1,
-                        backgroundColor: 'rgba(0, 59, 137, 0.5)',
-                        borderColor: 'rgba(16, 16, 16, 0.6)'
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                display: true,
-                            },
-                            grid: {
-                                drawTicks: false,
-                            },
-                            border: {
-                                display: false,
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            }
-                        }
+    window.myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: plageDataChart.map(range => `${range[0]} - ${range[1]}`), // Use plages as labels
+            datasets: [{
+                label: 'Frequency',
+                data: fruequenceDataChart, // Use frequency data
+                borderWidth: 1,
+                backgroundColor: 'rgba(0, 59, 137, 0.5)',
+                borderColor: 'rgba(16, 16, 16, 0.6)'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        display: true,
                     },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
+                    grid: {
+                        drawTicks: false,
+                    },
+                    border: {
+                        display: false,
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
                     }
                 }
-            });
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
         }
+    });
+}
 
-        dateSelect.addEventListener('change', (event) => {
-            const selectedYear = event.target.value;
-            updateTurnoversChart(selectedYear);
-        });
 
-        document.getElementById('turnoverButton').addEventListener('click', () => {
-            const selectedYear = dateSelect.value;
-            updateTurnoversChart(selectedYear);
-        });
+dateSelect.addEventListener('change', () => {
+    updateTurnoversChart(selectedOption.innerText.trim());
+});
 
-        document.getElementById('workforceButton').addEventListener('click', () => {
-            const selectedYear = dateSelect.value;
-            updateWorkforcesChart(selectedYear);
-        });
+turnoverTabButton.addEventListener('click', () => {
+    const selectedYear = selectedOption.textContent;
+    updateTurnoversChart(selectedYear);
+    
+});
 
-        document.getElementById('surfaceButton').addEventListener('click', () => {
-            const selectedYear = dateSelect.value;
-            updateSurfacesChart(selectedYear);
-        });
+workforceTabButton.addEventListener('click', () => {
+    const selectedYear = selectedOption.textContent;
+    updateWorkforcesChart(selectedYear);
+});
+
+surfaceTabButton.addEventListener('click', () => {
+    const selectedYear = selectedOption.textContent;
+    updateSurfacesChart(selectedYear);
+});

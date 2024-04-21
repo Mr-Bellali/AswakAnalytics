@@ -204,14 +204,14 @@ body, h1, h5, p, textarea {
   margin-right: 32px;
 }
 
-.navbar-navigation, .dashboard-nav-links {
+.navbar-navigation, .dashboard-navigation {
   display: flex;
   list-style: none;
   padding-left: 0;
   margin: 0;
 }
 
-.navbar-navigation li:nth-of-type(1), .navbar-navigation li:nth-of-type(2), .dashboard-nav-links li:nth-of-type(1), .dashboard-nav-links li:nth-of-type(2) {
+.navbar-navigation li:nth-of-type(1), .navbar-navigation li:nth-of-type(2), .dashboard-navigation li:nth-of-type(1), .dashboard-navigation li:nth-of-type(2) {
   margin-right: 32px;
 }
 
@@ -220,7 +220,7 @@ body, h1, h5, p, textarea {
   color: var(--black-color);
 }
 
-.active-navigation-element, .active-dashboard-nav-element {
+.active-navigation-element, .active-dashboard-navigation-button {
   color: var(--blue-color);
   font-weight: 800;
 }
@@ -394,7 +394,7 @@ body, h1, h5, p, textarea {
   overflow: hidden;
 }
 
-.vertical-card-container:hover, .horizontal-card-container:hover, .orientation-buttons-container button, .modify-button:hover, .delete-button:hover {
+.vertical-card-container:hover, .horizontal-card-container:hover, .orientation-buttons-container button, .modify-button:hover, .delete-button:hover, .dashboard-navigation-button:hover {
   cursor: pointer;
 }
 
@@ -624,10 +624,18 @@ dialog::backdrop {
   #################################
 */
 
-.dashboard-nav-elements {
+.dashboard-navigation-elements {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.dashboard-navigation-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  padding: 0;
+  line-height: 24px;
 }
 
 .dashboard-elements {
@@ -653,7 +661,7 @@ dialog::backdrop {
 .average-container, .mode-container, .median-container, .deviation-coefficient-container {
   width: 100%;
   height: 178px;
-  background-color: var(--ultra-light-gray-color);
+  background-color: var(--light-blue-color);
   border-radius: 8px;
   padding: 24px;
   display: flex;
@@ -676,7 +684,7 @@ dialog::backdrop {
 .chart-container {
   width: 100%;
   height: 388px;
-  background-color: var(--ultra-light-gray-color);
+  background-color: var(--light-blue-color);
   border-radius: 8px;
   display: flex;
   justify-content: center;

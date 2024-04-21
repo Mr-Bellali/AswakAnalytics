@@ -26,12 +26,12 @@
       </div>
     </nav>
     <main class="main-container">
-      <div class="dashboard-nav-elements">
+      <div class="dashboard-navigation-elements">
         <div>
-          <ul class="dashboard-nav-links">
-            <li class="active-dashboard-nav-element">Chiffre d'affaire</li>
-            <li>Effectif</li>
-            <li>Surface</li>
+          <ul class="dashboard-navigation">
+            <li><button class="dashboard-navigation-button" id="turnoverTabButton">Chiffre d'affaire</button></li>
+            <li><button class="dashboard-navigation-button" id="workforceTabButton">Effectif</button></li>
+            <li><button class="dashboard-navigation-button" id="surfaceTabButton">Surface</button></li>
           </ul>
         </div>
         <div class="custom-dropdown">
@@ -46,26 +46,26 @@
       <div class="dashboard-elements margin-top-84">
         <div class="left-elements-container">
           <div class="average-container">
-            <p>Moyenne Arithmethique Pondérée</p>
-            <p class="margin-top-12" id="averageValue">4 655 000 DHS</p>
-            <p class="margin-top-24">Le chiffre d'affaires moyen de tous les magasins</p>
+            <p>Moyenne Arithmétique Pondérée</p>
+            <p class="margin-top-12" id="averageValue"></p>
+            <p class="margin-top-24" id="averageValueHint">Le chiffre d'affaires moyen de tous les magasins.</p>
           </div>
           <div class="mode-container">
             <p>Mode</p>
-            <p class="margin-top-12" id="modeValue">4 764 000 DHS</p>
-            <p class="margin-top-24">Le chiffre d'affaires réalisé par le plus grand nombre de magasins est 4 764 000 DH</p>
+            <p class="margin-top-12" id="modeValue"></p>
+            <p class="margin-top-24" id="modeValueHint">Le chiffre d'affaires réalisé par le plus grand nombre de magasins est <span id="modeValueHint"></span>.</p>
           </div>
           <div class="median-container">
             <p>Médiane</p>
-            <p class="margin-top-12" id="medianValue">4 700 000 DHS</p>
-            <p class="margin-top-24">50% des magasins réalisent un chiffre d'affaires inférieur à 4 700 000  DHS et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat</p>
+            <p class="margin-top-12" id="medianValue"></p>
+            <p class="margin-top-24" id="medianValueHint">50% des magasins réalisent un chiffre d'affaires inférieur à <span id="medianValueHint"></span> et, par conséquent, 50% d'entre eux réalisent un chiffre d'affaire supérieur à ce résultat.</p>
           </div>
         </div>
         <div class="right-elements-container">
           <div class="deviation-coefficient-container">
             <p>Écart type et coefficient de variation</p>
-            <p class="margin-top-12" id="deviationCoefficient">13.8%</p>
-            <p class="margin-top-24">L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de <span id="moyenne">610 000 DHS</span>, et le coefficient de variation est de <span id="coefficientVal">0,131</span></p>
+            <p class="margin-top-12" id="deviationCoefficient"></p>
+            <p class="margin-top-24" id="deviationCoefficientHint">L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de <span id="averageValueHint"></span>, et le coefficient de variation est de <span id="coefficientVal"></span>.</p>
           </div>
           <div class="chart-container">
             <canvas id="data-chart"></canvas>
