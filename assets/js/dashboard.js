@@ -162,14 +162,63 @@ workforceTabButton.addEventListener("click", () => {
 });
 
 surfaceTabButton.addEventListener("click", () => {
- // surface tab code goes here
+  if (turnoverTabButton.classList.contains("active-dashboard-navigation-button")) {
+    turnoverTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  if (workforceTabButton.classList.contains("active-dashboard-navigation-button")) {
+    workforceTabButton.classList.remove("active-dashboard-navigation-button");
+  }
+
+  surfaceTabButton.classList.add("active-dashboard-navigation-button");
+
+  averageValue.innerHTML = formatNumberWithSpaces(calculateAverage(surfaceData));
+  averageValueHint.innerText = `Surface moyen de tous les magasins.`
+
+  modeValue.innerText = parseInt(calculateMode(surfaceData));
+  modeValueHint.innerText = `Surface attends par le plus grand nombre de magasins est ${parseInt(calculateMode(surfaceData))}.`;
+
+  medianValue.innerText = calculateMedian(surfaceData);
+  medianValueHint.innerText = `50% des magasins ayant un surface inférieur à ${calculateMode(surfaceData)} et, par conséquent, 50% d'entre eux ayant un surface supérieur à ce résultat.`;
+
+  deviationCoefficient.innerText = calculateDeviation(surfaceData).toFixed(2) + "%";
+  deviationCoefficientHint.innerText = `L'écart-type montre que surface des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(workforceData))}, et le coefficient de variation est de ${((calculateDeviation(workforceData) * 100) / calculateAverage(workforceData)).toFixed(4)}.`;
+  updateWorkforcesChart(uniqueYears[0]);
 });
 
-dateSelect.addEventListener("click", (e) => {
-  if (e.target.tagName === "div") {
 
-    // this is the value of selected year from dropdown menu
-    console.log(parseInt(e.target.textContent));
+dateSelect.addEventListener("click", (e) => {
+  if (e.target.tagName === "DIV") {
+    // this is the value of the selected year from the dropdown menu
+    let selectedYear = parseInt(e.target.textContent);
+
+    const activeTab = document.querySelector('.active-dashboard-navigation-button');
+    if (activeTab) {
+      let data;
+      if (activeTab.id === 'turnoverTabButton') {
+        for (let i = 0; i < dataStorage.length; i++)
+        {
+          let dates = dataStorage.map((data) => data.dataYear);
+          let years = dates.map((date) => {
+          return date.split("/")[2];
+})
+          if (dataStorage[i].dataYear === selectedYear)
+          {
+            let selectedTurnover = [];
+            selectedTurnover.push(dataStorage[i].dataTurnover);
+            console.log(selectedTurnover);
+          }
+        }
+        data = turnoverData;
+
+      } else if (activeTab.id === 'workforceTabButton') {
+        data = workforceData;
+      } else if (activeTab.id === 'surfaceTabButton') {
+        data = surfaceData;
+      }
+
+      console.log(data);
+    }
   }
 
   // 1. check which tab is selected and use its data :
