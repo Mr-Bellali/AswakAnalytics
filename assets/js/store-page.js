@@ -144,7 +144,7 @@ for (let i = 0; i < userStorage.length; i++) {
 
         let isError = false;
 
-        if (yearInputModify.value === "" || isNaN(yearInputModify.value)) {
+        if (yearInputModify.value === "") {
           yearInputModifyHelp.innerText = "Veuillez saisir une année valide.";
           yearInputModifyHelp.classList.remove("hidden");
           yearInputModify.style.border = "1px solid var(--red-color)";
@@ -288,7 +288,7 @@ for (let i = 0; i < userStorage.length; i++) {
       restoreDefault();
       let isError = false;
 
-      if (yearInput.value === "" || isNaN(yearInput.value)) {
+      if (yearInput.value === "") {
         yearInputHelp.innerText = "Veuillez saisir une année valide.";
         yearInputHelp.classList.remove("hidden");
         yearInput.style.border = "1px solid var(--red-color)";
