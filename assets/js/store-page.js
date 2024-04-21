@@ -11,28 +11,24 @@ const deleteDataModal = document.getElementById("deleteDataModal");
 const cancelDeleteButton = document.getElementById("cancelDeleteButton");
 const confirmDeleteButton = document.getElementById("confirmDeleteButton");
 
-
 const storeStorage = JSON.parse(localStorage.getItem("storeStorage"));
 const temporaryStoreId = localStorage.getItem("temporaryStoreId");
 
-//modify inputs 
 const yearInputModify = document.getElementById("yearInputModify");
 const turnoverInputModify = document.getElementById("turnoverInputModify");
 const workforceInputModify = document.getElementById("workforceInputModify");
 const surfaceInputModify = document.getElementById("surfaceInputModify");
 
-//modify help 
 const yearInputModifyHelp = document.getElementById("yearInputModifyHelp");
 const turnoverInputModifyHelp = document.getElementById("turnoverInputModifyHelp");
 const workforceInputModifyHelp = document.getElementById("workforceInputModifyHelp");
 const surfaceInputModifyHelp = document.getElementById("surfaceInputModifyHelp");
 
-// titles 
-
 const dashboardHeading = document.getElementById("storeDashboardHeader");
 const headingSupportingText = document.getElementById("storeDashboardHeaderSupportingText");
 
-let dataIndex ;
+let dataId;
+let dataIdIndex;
 
 dashboardHeading.innerHTML = `${storeStorage[temporaryStoreId].storeName}`;
 headingSupportingText.innerText = `À ${storeStorage[temporaryStoreId].storeLocation}`;
@@ -80,15 +76,14 @@ const turnoverInputHelp = document.getElementById("turnoverInputHelp");
 const workforceInputHelp = document.getElementById("workforceInputHelp");
 const surfaceInputHelp = document.getElementById("surfaceInputHelp");
 
-document.addEventListener('DOMContentLoaded' , function () {
+document.addEventListener('DOMContentLoaded' , () => {
     renderData();
 });
 
 function renderData() {
-    const dataStorages = JSON.parse(localStorage.getItem("dataStorage")) || [];
     const dashboardTable = document.getElementById("dashboard-table");
 
-    dataStorages.forEach(function (dataStorage , index) {
+    dataStorage.forEach(function (dataStorage) {
         if (dataStorage.storeId === temporaryStoreId) {
             const newLine = document.createElement("tr");
             newLine.innerHTML = `
@@ -97,8 +92,8 @@ function renderData() {
             <td>${dataStorage.dataWorkforce}</td>
             <td>${dataStorage.dataSurface}</td>
             <td>
-              <button class="modify-button" id="modifyButton" data-index="${index}">Modifier</button>
-              <button class="delete-button" id="deleteButton" data-index="${index}">Supprimer</button>
+              <button class="modify-button" id="modifyButton" data-data-id="${dataStorage.dataId}">Modifier</button>
+              <button class="delete-button" id="deleteButton" data-data-id="${dataStorage.dataId}">Supprimer</button>
             </td>
             `;
             dashboardTable.appendChild(newLine);
@@ -109,12 +104,18 @@ function renderData() {
     
     modifyButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
-            dataIndex = e.target.dataset.index;
+            dataId = e.target.dataset.dataId;
 
-            yearInputModify.value = dataStorage[dataIndex].dataYear;
-            turnoverInputModify.value = dataStorage[dataIndex].dataTurnover;
-            workforceInputModify.value = dataStorage[dataIndex].dataWorkforce;
-            surfaceInputModify.value = dataStorage[dataIndex].dataSurface;
+            for (let i = 0; i < dataStorage.length; i++) {
+                if (dataStorage[i].dataId === dataId) {
+                    dataIdIndex = i;
+                }
+            }
+
+            yearInputModify.value = dataStorage[dataIdIndex].dataYear;
+            turnoverInputModify.value = dataStorage[dataIdIndex].dataTurnover;
+            workforceInputModify.value = dataStorage[dataIdIndex].dataWorkforce;
+            surfaceInputModify.value = dataStorage[dataIdIndex].dataSurface;
             editDataModal.showModal();
         });
     });
@@ -166,10 +167,10 @@ function renderData() {
             const newDataWorkForce = workforceInputModify.value;
             const newDataSurface = surfaceInputModify.value;
             
-            dataStorage[dataIndex].dataYear = newDataYear;
-            dataStorage[dataIndex].dataTurnover = newDataTurnOver;
-            dataStorage[dataIndex].dataWorkforce = newDataWorkForce;
-            dataStorage[dataIndex].dataSurface = newDataSurface;
+            dataStorage[dataIdIndex].dataYear = newDataYear;
+            dataStorage[dataIdIndex].dataTurnover = newDataTurnOver;
+            dataStorage[dataIdIndex].dataWorkforce = newDataWorkForce;
+            dataStorage[dataIdIndex].dataSurface = newDataSurface;
         
             localStorage.setItem("dataStorage", JSON.stringify(dataStorage));
             editDataModal.close();
@@ -180,8 +181,15 @@ function renderData() {
     const deleteButtons = document.querySelectorAll("#deleteButton");
 
     deleteButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            deleteDataModal.showModal();
+        button.addEventListener("click", (e) => {
+            dataId = e.target.dataset.dataId;
+
+            for (let i = 0; i < dataStorage.length; i++) {
+                if (dataStorage[i].dataId === dataId) {
+                    dataIdIndex = i;
+                }
+            }
+        deleteDataModal.showModal();
         });
     });
 
@@ -190,8 +198,7 @@ function renderData() {
     })
 
     confirmDeleteButton.addEventListener("click" , () => {
-        console.log(dataIndex);
-        dataStorage.splice(dataIndex, 1);
+        dataStorage.splice(dataIdIndex, 1);
         localStorage.setItem("dataStorage", JSON.stringify(dataStorage));
         deleteDataModal.close();
         location.reload();

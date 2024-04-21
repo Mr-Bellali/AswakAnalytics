@@ -146,7 +146,7 @@ turnoverTabButton.addEventListener("click", () => {
 
   deviationCoefficient.innerText = calculateDeviation(turnoverData).toFixed(2) + "%";
   deviationCoefficientHint.innerText = `L'écart-type montre que les chiffres d'affaires des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(turnoverData)) + " DH"}, et le coefficient de variation est de ${((calculateDeviation(turnoverData) * 100) / calculateAverage(turnoverData)).toFixed(4)}.`;
-  updateTurnoversChart(selectedOption.textContent.trim());
+  updateTurnoversChart(selectedOption);
 });
 
 workforceTabButton.addEventListener("click", () => {
@@ -171,7 +171,7 @@ workforceTabButton.addEventListener("click", () => {
 
   deviationCoefficient.innerText = calculateDeviation(workforceData).toFixed(2) + "%";
   deviationCoefficientHint.innerText = `L'écart-type montre que l'effectif des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(workforceData))}, et le coefficient de variation est de ${((calculateDeviation(workforceData) * 100) / calculateAverage(workforceData)).toFixed(4)}.`;
-  updateWorkforcesChart(selectedOption.textContent.trim());
+  updateWorkforcesChart(selectedOption);
 });
 
 surfaceTabButton.addEventListener("click", () => {
@@ -196,7 +196,7 @@ surfaceTabButton.addEventListener("click", () => {
 
   deviationCoefficient.innerText = calculateDeviation(surfaceData).toFixed(2) + "%";
   deviationCoefficientHint.innerText = `L'écart-type montre que surface des magasins s'écartent en moyenne de ${formatNumberWithSpaces(calculateAverage(surfaceData)) + " m²"}, et le coefficient de variation est de ${((calculateDeviation(surfaceData) * 100) / calculateAverage(surfaceData)).toFixed(4)}.`;
-  updateWorkforcesChart(selectedOption.textContent.trim());
+  updateWorkforcesChart(selectedOption);
 });
 
 dateSelect.addEventListener("click", (e) => {
@@ -232,44 +232,8 @@ dateSelect.addEventListener("click", (e) => {
     if (surfaceTabButton.classList.contains("active-dashboard-navigation-button")) {
 
     }
-
-
-//     const activeTab = document.querySelector('.active-dashboard-navigation-button');
-//     if (activeTab) {
-//       let data;
-//       if (activeTab.id === 'turnoverTabButton') {
-//         for (let i = 0; i < dataStorage.length; i++) {
-//           let dates = dataStorage.map((data) => data.dataYear);
-//           let years = dates.map((date) => {
-//           return date.split("/")[2];
-// })
-//           if (dataStorage[i].dataYear === selectedYear)
-//           {
-//             let selectedTurnover = [];
-//             selectedTurnover.push(dataStorage[i].dataTurnover);
-//             console.log(selectedTurnover);
-//           }
-//         }
-//         data = turnoverData;
-
-//       } else if (activeTab.id === 'workforceTabButton') {
-//         data = workforceData;
-//       } else if (activeTab.id === 'surfaceTabButton') {
-//         data = surfaceData;
-//       }
-
-//       console.log(data);
-//     }
   }
-
-  // 1. check which tab is selected and use its data :
-  // if turnoverTabButton is selected (has .active-dashboard-navigation-button class name) use turnoverData
-  // if workforceTabButton is selected (has .active-dashboard-navigation-button class name) use workforceData 
-  // if surfaceTabButton is selected (has .active-dashboard-navigation-button class name) use surfaceData 
-
-  // get 
 });
-
 
 let turnoversDataChart;
 let workforcesDataChart;
